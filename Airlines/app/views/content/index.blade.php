@@ -93,7 +93,7 @@
 		<!-- Find it -->
 	    <div class='form-row'>
 			<div class='col-md-5 form-group'>
-				<button class="btn btn-block btn-lg btn-primary" type='submit' name='submit'>Find it</button>
+				{{ Form::submit('Find it', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'submit', 'id'=>'submit']) }}
 			</div>
 		</div>
 	</div>
