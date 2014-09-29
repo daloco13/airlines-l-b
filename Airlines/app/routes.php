@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', function()
+/*Route::get('/', function()
 {
 	return View::make('content.index');
-});
+});*/
+
+Route::get('/','AirlinesController@index');

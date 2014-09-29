@@ -29,7 +29,8 @@
 
       <!-- put form here -->
       {{ Form::open(['url'=>'/']) }}
-
+	
+	  <!-- Trip Type -->
       <div class='form-row'>
 		<div class='col-xs-2 form-group required'>
 			{{ Form::radio('triptype','',['name'=>'intTripType', 'id'=>'intTripTypeReturn', 'onclick'=>'disablefield()', 'value'=>'roundtrip']) }}
@@ -46,14 +47,14 @@
 	<!-- Origin -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group required'>
-		{{ Form::select('from', ['from'=>'From'],'', ['class'=>'form-control', 'name'=>'from', 'id'=>'from']) }}       
+		{{ Form::select('from', ['from'=>'From', 'Philippines'=> $airports],'', ['class'=>'form-control', 'id'=>'from']) }}       
 		</div>
 	</div>
 
 	<!-- Destination -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group required'>
-			{{ Form::select('to', ['to'=>'To'],'', ['class'=>'form-control', 'name'=>'to', 'id'=>'to']) }}       
+			{{ Form::select('to', ['to'=>'To', 'Philippines'=> $airports],'', ['class'=>'form-control', 'id'=>'to']) }}       
 		</div>
 	</div>
 
