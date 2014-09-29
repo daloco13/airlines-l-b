@@ -12,7 +12,7 @@
 	</div> <!-- /demo-headline -->
 
       <div class="row demo-row">
-        <div class="col-xs-9">
+        <div class="col-xs-12">
           <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
 
             <div class="collapse navbar-collapse" id="navbar-collapse-01">

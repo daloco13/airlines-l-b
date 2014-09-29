@@ -17,3 +17,5 @@
 });*/
 
 Route::get('/','AirlinesController@index');
+
+Route::get('/select','AirlinesController@select');

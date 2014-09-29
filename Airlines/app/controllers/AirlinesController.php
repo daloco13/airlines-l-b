@@ -13,6 +13,11 @@ class AirlinesController extends \BaseController {
 		return View::make('content.index',['airports'=>$airports]);
 	}
 
+	public function select()
+	{
+		return View::make('content.select');
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.
