@@ -18,8 +18,8 @@
 		        <div class="collapse navbar-collapse" id="navbar-collapse-01">
 		          <ul class="nav navbar-nav">
 		            <li class="#"><a href="#fakelink">Search Flight<span class=""></span></a></li>
-		            <li class="active"><a href="#fakelink">Select Flight<span class=""></span></a></li>
-		            <li class="disabled"><a href="#fakelink">Guest Details<span class=""></span></a></li>
+		            <li class="#"><a href="#fakelink">Select Flight<span class=""></span></a></li>
+		            <li class="active"><a href="#fakelink">Guest Details<span class=""></span></a></li>
 		            <li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
 		           </ul>
 		        </div><!-- /.navbar-collapse -->

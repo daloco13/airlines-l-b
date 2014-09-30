@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-<?php var_dump($inputDetails) ?>
+<?php //var_dump($inputDetails) ?>
 
 
 	

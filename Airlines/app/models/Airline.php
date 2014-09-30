@@ -2,16 +2,18 @@
 
 class Airline extends Eloquent {
 	
-	   protected $primaryKey = "ApID";
+	 protected $primaryKey = "ApID";
      protected $table = 'airport';
      //public $timestamps = false;
-     // protected $fillable;
+     /*protected $fillable = ['prodcode','prodname',
+                           'prodtype','prodqty',
+                           'prodprice','prodrlevel',
+                           'prodrquant'];*/
 
-     /*static public $rules = ['prodcode'=>'required|alpha_num|max:6',
-                             'prodname'=>'required'];                       
+     static public $rules = ['FlightDate'=>'required'];                       
 
      static function setRules()
      {
      	return self::$rules;
-     }                      */
+     }                      
 }
