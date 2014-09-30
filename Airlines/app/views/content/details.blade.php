@@ -42,27 +42,44 @@
 			</div>
 
 			<div class="col-md-8">
-		    <h2>Departure Trip</h2>
+		    <h4>Contact Information</h4>
 			<div class="input-group">
 				<!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
 			</div>
-		    <br>
-			<table class="table table-list-searcha">
-				<thead>
-					<tr>
-						<th><b>Flight</b></th>
-						<th><b>Departure</b></th>
-						<th><b>Arrival</b></th>
-						<th><b>Trip Duration</b></th>
-		                <th><b>Price</b></th>
-						<th><b>Available</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					<td>flights...</td>
-				</tbody>
-			</div>
+		    
+		    <div class='form-row'>
+		    <div class="panel">
+				<div class='col-xs-12'>
+					<div class='col-xs-6 form-group required'>
+					<p><b>Address</b></p>
+						{{ Form::select('country', ['country'=>'Select a Country'],'', ['class'=>'form-control']) }}       
+					</div>
 
+					<div class='col-xs-6 form-group required'>
+					<p>&nbsp;</p>
+						{{ Form::select('city', ['city'=>'Select a State/City'],'', ['class'=>'form-control']) }}       
+					</div>
+
+					<div class="col-xs-9 form-group required">
+						{{ Form::text('streetaddress','',['placeholder'=>'Street Address', 'class'=>'form-control']) }}
+					</div>
+
+					<div class="col-xs-3 form-group required">
+						{{ Form::text('zipcode','',['placeholder'=>'Zip Code', 'class'=>'form-control']) }}
+					</div>
+
+					<div class='col-xs-6 form-group required'>
+					<p><b>Email</b></p>
+						{{ Form::text('email', '', ['class'=>'form-control', 'placeholder'=>'Email']) }}       
+					</div>
+
+					<div class='col-xs-6 form-group required'>
+					<p><b>Mobile Phone</b></p>
+						{{ Form::text('mobilephone', '', ['class'=>'form-control', 'placeholder'=>'Mobile Phone']) }}       
+					</div>
+					</div>
+				</div>	<!-- /form-row -->
+			</div>
 		</div>
 
 		  
