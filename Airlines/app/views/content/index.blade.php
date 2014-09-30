@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-
 	<div class="demo-headline">
 		<h1 class="demo-logo">
 			<div class="logo"></div>
@@ -28,17 +27,30 @@
       </div> <!-- /row -->
 
       <!-- put form here -->
-      {{ Form::open(['url'=>'/']) }}
-	
+      {{ Form::open(['url'=>'/shit']) }}
+      <script>
+      	function disablefield()	{
+			if(document.getElementById('intTripTypeReturn').checked == true) {
+				document.getElementById('intReturn').disabled = false;
+			} else {
+				document.getElementById('intReturn').disabled = true;
+				document.getElementById('intReturn').value = "";
+			}
+
+			$errorMessage.addClass('hide');
+			$('.has-error').removeClass('has-error');
+		}
+      </script>
+		
 	  <!-- Trip Type -->
       <div class='form-row'>
 		<div class='col-xs-2 form-group required'>
-			{{ Form::radio('triptype','',['name'=>'intTripType', 'id'=>'intTripTypeReturn', 'onclick'=>'disablefield()', 'value'=>'roundtrip']) }}
-			{{ Form::label('return','Round Trip', ['class'=>'control-label']) }}
+			<input type="radio" name="intTripType" id="intTripTypeOneWay" onclick="disablefield()" value="oneway" />
+			{{ Form::label('oneway','One Way', ['class'=>'control-label']) }}
 		</div>
 		<div class='col-xs-2 form-group required'>
-			{{ Form::radio('triptype','',['name'=>'intTripType', 'id'=>'intTripTypeOneWay', 'onclick'=>'disablefield()', 'value'=>'oneway']) }}
-			{{ Form::label('oneway','One Way', ['class'=>'control-label']) }}
+			<input type="radio" name="intTripType" id="intTripTypeReturn" onclick="disablefield()" value="return" checked="checked" />
+			{{ Form::label('return','Round Trip', ['class'=>'control-label']) }}
 		</div>
 	  </div>
 
@@ -61,14 +73,16 @@
 	<!-- Date Picker Departure Date -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group required'>
-			{{ Form::text('departure','',['placeholder'=>'Departure', 'autocomplete'=>'off', 'class'=>'form-control', 'name'=>'intDepart', 'id'=>'intDepart', 'size'=>'20']) }}
+			{{ Form::label('departure','Departure Date', ['class'=>'control-label']) }}
+			<input autocomplete='off' class='form-control' name="intDepart" id="intDepart" size='20' type='text'>
 		</div>
 	</div>
 
 	<!-- Date Picker Return Date -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group returnDate required'>
-			{{ Form::text('return','',['placeholder'=>'Return', 'autocomplete'=>'off', 'class'=>'form-control', 'name'=>'intReturn', 'id'=>'intReturn', 'size'=>'20']) }}
+			{{ Form::label('return','Return Date', ['class'=>'control-label']) }}
+			<input autocomplete='off' class='form-control' name="intReturn" id="intReturn" size='20' type='text'>
 		</div>
 	</div>
 

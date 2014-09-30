@@ -16,6 +16,10 @@
 	return View::make('content.index');
 });*/
 
+// index (main page)
 Route::get('/','AirlinesController@index');
+Route::post('/shit', 'AirlinesController@shit');
 
+//	
 Route::get('/select','AirlinesController@select');
+

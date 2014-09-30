@@ -1,0 +1,10 @@
+	
+
+	Tracker
+
+		09/30/14
+			•	editItem <- search
+			• 	from, to, departure, return (index.blade.php)
+			•	flight_schedule->airfare->route->airport
+	
+			•	do flights
