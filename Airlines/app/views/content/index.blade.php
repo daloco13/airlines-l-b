@@ -15,10 +15,9 @@
       <div class="row demo-row">
         <div class="col-xs-12">
           <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
-
-            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#fakelink">Search Flight<span class=""></span></a></li>
+              	<li class="active">{{ link_to('/','Search Flight') }}<span class=""></span></a></li>
                 <li class="disabled"><a href="#fakelink">Select Flight<span class=""></span></a></li>
                 <li class="disabled"><a href="#fakelink">Guest Details<span class=""></span></a></li>
                 <li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
@@ -29,7 +28,8 @@
       </div> <!-- /row -->
 
       <!-- put form here -->
-      {{ Form::open(['url'=>'/shit']) }}
+      {{ Form::open(array('url' => '/select', 'class'=>'require-validation')) }}
+
 	  <div class="col-md-1"></div>
 	  
 	  <div class="col-md-11">
@@ -50,14 +50,24 @@
 	<!-- Origin -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group required'>
-		{{ Form::select('from', ['from'=>'From', 'Philippines'=> $airports],'', ['class'=>'form-control', 'id'=>'from']) }}       
+		<select name="intFrom" id="intFrom" class='form-control'>
+			<option value="">From</option>
+				@foreach($airports as $key)
+				{{ '<option>'.$key->Location.'</option>' }}
+				@endforeach
+		</select>       
 		</div>
 	</div>
 
 	<!-- Destination -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group required'>
-			{{ Form::select('to', ['to'=>'To', 'Philippines'=> $airports],'', ['class'=>'form-control', 'id'=>'to']) }}       
+			<select name="intTo" id="intTo" class='form-control'>
+				<option value="">To</option>
+					@foreach($airports as $key)
+					{{ '<option>'.$key->Location.'</option>' }}
+					@endforeach
+			</select> 
 		</div>
 	</div>
 
@@ -102,6 +112,17 @@
 				{{ Form::submit('Find it', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'submit', 'id'=>'submit']) }}
 			</div>
 		</div>
+
+		<div class="col-md-9">
+			<div class='form-row'>
+				<div class='col-md-12 error form-group hide'>
+					<div class='alert-danger alert'>
+						Please correct the errors and try again.
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	</div> <!-- /col-md-11 -->

@@ -11,27 +11,19 @@
 |
 */
 
-Route::get('/search', function()
-{	
-	$result = DB::table('flight_schedule')
-				->where('FsID', '=', 1)
-				->get();
 
-	print_r($result);
-});
-
-// index (main page)
+// index
 Route::get('/','AirlinesController@index');
-
-Route::post('/shit', 'AirlinesController@shit');
+Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
 Route::get('/select','AirlinesController@select');
 
+
 //	guest details
 Route::get('/details','AirlinesController@details');
 
-//Route::get('/search','AirlinesController@searchbro');
+
 
 
 

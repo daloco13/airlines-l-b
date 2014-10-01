@@ -9,3 +9,6 @@
 						•	flight_schedule->airfare->route->airport
 
 						•	create migrations with foreign keys
+
+		10/01/2014	-	•	dataTables.net/examples/index
+						•	divs -> horizontal, panel
