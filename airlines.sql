@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 06, 2014 at 01:32 PM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- Host: 127.0.0.1
+-- Generation Time: Oct 02, 2014 at 05:28 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `airlines`
 --
-CREATE DATABASE IF NOT EXISTS `airlines` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `airlines`;
 
 -- --------------------------------------------------------
 
@@ -40,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `aircrafts` (
 --
 
 INSERT INTO `aircrafts` (`AcID`, `AcName`, `Capacity`) VALUES
-(1, 'PUNX-001', 40),
+(1, 'PUNX-001', 37),
 (2, 'PUNX-002', 40),
 (3, 'PUNX-003', 40),
 (4, 'PUNX-004', 40),
@@ -151,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `airport` (
   `Location` varchar(65) NOT NULL,
   `Country` varchar(65) NOT NULL,
   PRIMARY KEY (`ApID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `airport`
@@ -159,7 +157,8 @@ CREATE TABLE IF NOT EXISTS `airport` (
 
 INSERT INTO `airport` (`ApID`, `AirportCode`, `Location`, `Country`) VALUES
 (1, 'CEB', 'Cebu', 'Philippines'),
-(2, 'MAN', 'Metro Manila', 'Philippines');
+(2, 'MAN', 'Metro Manila', 'Philippines'),
+(3, 'BTY', 'Booty Work', 'Asdf');
 
 -- --------------------------------------------------------
 
@@ -176,14 +175,17 @@ CREATE TABLE IF NOT EXISTS `contact_details` (
   `City` varchar(255) NOT NULL,
   `Country` varchar(255) NOT NULL,
   PRIMARY KEY (`CnID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `contact_details`
 --
 
 INSERT INTO `contact_details` (`CnID`, `Email`, `Mobile`, `Street`, `ZipCode`, `City`, `Country`) VALUES
-(1, 'jeraldpunx@yahoo.com', '09123123231', 'Cebu City', '3000', 'Cebu City', 'Philippines');
+(1, 'jeraldpunx@yahoo.com', '09123123231', 'Cebu City', '3000', 'Cebu City', 'Philippines'),
+(2, 'skalfjskdf@gmail.com', '09454456', 'What The Fuck', '1231', 'Marsh Harbour', 'Bahamas'),
+(3, 'sfsafs@gmail.com', '093216548', 'Asdf', '1234', 'Diber (Peshkopi)', 'Albania'),
+(4, 'asdfjkl@gmail.com', '12345', 'Asdfasdf', '1234', 'Devoll (Bilisht)', 'Albania');
 
 -- --------------------------------------------------------
 
@@ -231,16 +233,40 @@ CREATE TABLE IF NOT EXISTS `flight_schedule` (
 --
 
 INSERT INTO `flight_schedule` (`FsID`, `FlightDate`, `Departure`, `Arrival`, `AirCraft`, `AirFare`) VALUES
-(1, '2014-03-06', '08:00:00', '09:00:00', 1, 1),
-(2, '2014-03-06', '09:00:00', '10:00:00', 2, 2),
-(3, '2014-03-06', '10:00:00', '11:00:00', 3, 3),
-(4, '2014-03-06', '11:00:00', '12:00:00', 4, 4),
-(5, '2014-03-06', '12:00:00', '13:00:00', 5, 5),
-(6, '2014-03-06', '13:00:00', '14:00:00', 6, 6),
-(7, '2014-03-06', '14:00:00', '15:00:00', 7, 7),
-(8, '2014-03-06', '15:00:00', '16:00:00', 8, 8),
-(9, '2014-03-06', '16:00:00', '17:00:00', 9, 9),
-(10, '2014-03-06', '17:00:00', '18:00:00', 10, 10);
+(1, '2014-09-30', '08:00:00', '09:00:00', 1, 1),
+(2, '2014-09-30', '09:00:00', '10:00:00', 2, 2),
+(3, '2014-09-30', '10:00:00', '11:00:00', 3, 3),
+(4, '2014-09-30', '11:00:00', '12:00:00', 4, 4),
+(5, '2014-09-30', '12:00:00', '13:00:00', 5, 5),
+(6, '2014-09-30', '13:00:00', '14:00:00', 6, 6),
+(7, '2014-09-30', '14:00:00', '15:00:00', 7, 7),
+(8, '2014-09-30', '15:00:00', '16:00:00', 8, 8),
+(9, '2014-09-30', '16:00:00', '17:00:00', 9, 9),
+(10, '2014-09-30', '17:00:00', '18:00:00', 10, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_02_014132_create_flight_schedule_table', 1),
+('2014_10_02_015052_create_aircrafts_table', 1),
+('2014_10_02_015340_create_airfare_table', 1),
+('2014_10_02_015555_create_route_table', 1),
+('2014_10_02_015814_create_passenger_table', 1),
+('2014_10_02_020130_create_transactions_table', 1),
+('2014_10_02_020835_create_contact_details_table', 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `passenger` (
   `Contact` int(11) NOT NULL,
   PRIMARY KEY (`PsID`),
   KEY `fk_contact` (`Contact`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `passenger`
@@ -267,7 +293,10 @@ CREATE TABLE IF NOT EXISTS `passenger` (
 INSERT INTO `passenger` (`PsID`, `Title`, `Name`, `BDay`, `Gender`, `Type`, `Contact`) VALUES
 (1, 'Mr', 'Jerald Patalinghug', '1994-12-15', 'Male', 'Adult', 1),
 (2, 'Miss', 'David Laude', '1992-03-04', 'Female', 'Child', 1),
-(3, 'Miss', 'Eloise Mamac', '2014-03-02', 'Female', 'Child', 1);
+(3, 'Miss', 'Eloise Mamac', '2014-03-02', 'Female', 'Child', 1),
+(4, 'Master', 'Punx Punx', '2014-09-24', 'Male', 'Adult', 2),
+(5, 'Master', 'Asdf Asdf', '2006-08-24', 'Male', 'Adult', 3),
+(6, 'Mr', 'Asdfg Qwert', '2014-09-25', 'Male', 'Adult', 4);
 
 -- --------------------------------------------------------
 
@@ -311,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   KEY `fk_discount` (`Discount`),
   KEY `fk_flight` (`Flight`),
   KEY `fk_SnID` (`SnID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `transactions`
@@ -323,7 +352,10 @@ INSERT INTO `transactions` (`TsID`, `TicketCode`, `BookingDate`, `Passenger`, `D
 (3, '82NRIE1F', '2014-03-06', 2, 2, 1, 2),
 (4, '82NRIE1F', '2014-03-06', 2, 2, 8, 2),
 (5, '82NRIE1F', '2014-03-06', 3, 2, 1, 3),
-(6, '82NRIE1F', '2014-03-06', 3, 2, 8, 3);
+(6, '82NRIE1F', '2014-03-06', 3, 2, 8, 3),
+(7, '0243QH7N', '2014-09-24', 4, 1, 1, 4),
+(8, 'MPPU42QM', '2014-09-26', 5, 1, 1, 5),
+(9, '9J2CEXY7', '2014-09-26', 6, 1, 1, 6);
 
 --
 -- Constraints for dumped tables
