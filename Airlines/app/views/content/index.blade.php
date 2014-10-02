@@ -82,7 +82,7 @@
 	<!-- Date Picker Return Date -->
 	<div class='form-row'>
 		<div class='col-xs-9 form-group returnDate required'>
-			{{ Form::label('return','Return', ['class'=>'control-label']) }}
+			{{ Form::label('return','Return Date', ['class'=>'control-label']) }}
 			<input autocomplete='off' class='form-control' name="intReturn" id="intReturn" size='20' type='text'>
 		</div>
 	</div>

@@ -1,0 +1,52 @@
+
+	
+	
+	•	AirlinesControllr -> searchbro
+
+		// inputs for search
+		$tripType 	=	Input::get('intTripType');
+		$origin		=	Input::get('intFrom');
+		$destination =	Input::get('intTo');
+		$departure	=	Input::get('intDepart');
+		$return		=	Input::get('intReturn');
+		$adult 		=	Input::get('intAdults');
+		$children	=	Input::get('intChildren');
+
+		or
+
+		$input = Input::all();
+
+		// session the inputs
+		Session::put('tripType', $tripType);
+		Session::put('origin', $origin);
+		Session::put('destination', $destination);
+		Session::put('departure', $departure);
+		Session::put('return', $return);
+		Session::put('adult', $adult);
+		Session::put('children', $children);
+
+		// get sessioned data
+		$data = Session::all();
+
+	•	joins
+
+		DB::table('users')
+            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.id', 'contacts.phone', 'orders.price')
+            ->get();
+
+        DB::table('flight_schedule')
+        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
+        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
+        		->select('flightdate', 'departure', 'arrival', 'aircraft', 'airfare')
+           		->get();
+        		
+		DB::table('airfare')
+				->join('route', 'airfare.route', '=', 'route.RtID')
+				->select('airport', 'destination')
+				->get();        		
+
+	•	do the Trip Summary js (:	
+	
+	•	session the selected flight
