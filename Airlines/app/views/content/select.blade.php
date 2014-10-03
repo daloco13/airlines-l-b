@@ -1,12 +1,19 @@
 @extends('layout.master')
 
-<?php 
-
-	var_dump($results[0]);
-
-
-	?>
-
+<?php var_dump($results[0]); ?>
+	@foreach($results as $key)
+		{{ $key->location }}
+		<br>
+		{{ $key->flightdate }}
+		<br>
+		{{ $key->departure }}
+		<br>
+		{{ $key->AcName }}
+		<br>
+		{{ $key->fare }}
+		<br>
+	@endforeach
+	
 	{{ $value = Session::get('origin'); }}
 	{{ $value = Session::get('destination'); }}
 
