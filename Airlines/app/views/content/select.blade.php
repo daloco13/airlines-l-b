@@ -27,7 +27,7 @@
 
 		<div class="col-md-12">
 			<div class="col-md-4 panel panel-default">
-				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
+				<h5 class='summary-heading panel-heading'>Fake Taxi</h5>
 					<h6 class='summary-title'>Departure</h6>
 					<span>Location:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
 					<span>Depart:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
@@ -50,15 +50,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($results as $key)
+					@if(!empty($results))
+						@foreach($results as $key)
+							<tr>
+							<td>{{ $key->Location.' '.$key->departure }}</td>
+							<td>{{ $value = Session::get('destination').' '.$key->arrival }}</td>
+							<td>{{ $key->AcName }}</td>
+							<td>{{ $key->fare }}</td>
+							<td><input type="radio" name="selectplaneDepart" id="selectplaneDepart" value="<?php echo '.$key->Location.';'.$value.';'.$key->flightdate.';'.$key->departure.';'.$key->AcName.';'.$key->fare.'; ?> " onclick="writeResultDepart(value)" /></td>
+							</tr>
+						@endforeach
+					@else
 						<tr>
-						<td>{{ $key->Location.' '.$key->departure }}</td>
-						<td>{{ $value = Session::get('destination').' '.$key->arrival }}</td>
-						<td>{{ $key->AcName }}</td>
-						<td>{{ $key->fare }}</td>
-						<td><input type="radio" name="selectplaneDepart" id="selectplaneDepart" value="<?php echo '.$key->Location.';'.$value.';'.$key->flightdate.';'.$key->departure.';'.$key->AcName.';'.$key->fare.'; ?> " onclick="writeResultDepart(value)" /></td>
+							<td>Empty</td>
 						</tr>
-					@endforeach
+					@endif
 				</tbody>
 			</div>
 		</table>

@@ -21,5 +21,6 @@
 						•	proper naming please
 						•	design (panel, border)
 						•	if's and else
+						•	search validations
 
 
