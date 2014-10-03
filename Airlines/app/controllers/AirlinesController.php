@@ -9,8 +9,10 @@ class AirlinesController extends \BaseController {
 	 */
 	public function index()
 	{	
-		$airports = Airline::all();
-		return View::make('content.index',['airports'=>$airports]);
+		$results = DB::table('airport')
+				   ->select('Location')
+				   ->get();
+		return View::make('content.index',['airports'=>$results]);
 	}
 
 	/*
