@@ -18,23 +18,39 @@ class AirlinesController extends \BaseController {
 	*/
 	public function searchbro()
 	{
-		$input = Input::get('search_field');
+		// inputs for search
+		$tripType 	=	Input::get('intTripType');
+		$origin		=	Input::get('intFrom');
+		$destination =	Input::get('intTo');
+		$flightdate	=	Input::get('intDepart');
+		$return		=	Input::get('intReturn');
+		$adult 		=	Input::get('intAdults');
+		$children	=	Input::get('intChildren');
 
-		$results = DB::table('flight_schedule')
-				->where('FsID', '=', $input)
-				->get();
+		// session the inputs
+		Session::put('tripType', $tripType);
+		Session::put('origin', $origin);
+		Session::put('destination', $destination);
+		Session::put('flightdate', $flightdate);
+		Session::put('return', $return);
+		Session::put('adult', $adult);
+		Session::put('children', $children);
 
-		// count retrieved
-		$count = 0;
-
-		//resultss
-		/*foreach($results as $key => $value)
-		{
-			$count++;
-		}*/
+		$results =  DB::table('flight_schedule')
+	        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
+	        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
+	        		->join('route', 'airfare.route', '=', 'route.RtID')
+					->join('airport', 'airport.ApID', '=', 'route.Origin')
+	        		->select('airport.location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+	        		->where('flight_schedule.flightdate', '=', $flightdate)
+	        		->orWhere(function($query) use ($origin, $destination)
+		            {
+		                $query->where('airport.location', '=', $origin)
+		                      ->where('airport.location', '=', $destination);
+		            })
+	           		->get();
 
 		return View::make('content.select')->with('results', $results);
-		
 	}
 
 	public function select()

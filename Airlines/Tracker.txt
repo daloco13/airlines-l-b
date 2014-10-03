@@ -2,13 +2,22 @@
 
 	Tracker
 
-		09/29/2014	-	•	stopped at details.blade.php "contact information"
+		09/29/14	-	•	stopped at details.blade.php "contact information"
 
-		09/30/2014	-	•	editItem <- search
+		09/30/14	-	•	editItem <- search
 						• 	from, to, departure, return
 						•	flight_schedule->airfare->route->airport
 
 						•	create migrations with foreign keys
 
-		10/01/2014	-	•	dataTables.net/examples/index
+		10/01/14	-	•	dataTables.net/examples/index
 						•	divs -> horizontal, panel
+
+		10/03/14	-	•	do select.blade.php
+						•	arrange the datas
+						•	do the Trip Summary js (:
+						•	session the selected
+						•	setup the Model(s), Controller(s)
+						•	proper naming please
+						•	design
+

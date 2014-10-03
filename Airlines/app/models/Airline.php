@@ -10,7 +10,7 @@ class Airline extends Eloquent {
                            'prodprice','prodrlevel',
                            'prodrquant'];*/
 
-     static public $rules = ['FlightDate'=>'required'];                       
+     //static public $rules = ['FlightDate'=>'required'];                       
 
      static function setRules()
      {

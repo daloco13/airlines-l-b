@@ -1,20 +1,14 @@
 @extends('layout.master')
 
-@foreach ($results as $key) 
-	
-		{{ $key->FsID }}
-		<br> 
-		{{ $key->FlightDate }} 
-		<br>
-		{{ $key->Departure }} 
-		<br>
-		{{ $key->Arrival }} 
-		<br>
-		{{ $key->AirCraft }} 
-		<br>
-		{{ $key->AirFare }} 
+<?php 
 
-@endforeach
+	var_dump($results[0]);
+
+
+	?>
+
+	{{ $value = Session::get('origin'); }}
+	{{ $value = Session::get('destination'); }}
 
 @section('content')
 <div class="container">
