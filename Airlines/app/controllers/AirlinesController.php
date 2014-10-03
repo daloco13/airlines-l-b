@@ -27,6 +27,10 @@ class AirlinesController extends \BaseController {
 		$adult 		=	Input::get('intAdults');
 		$children	=	Input::get('intChildren');
 
+		//input::all
+
+        //$validation = Validator::make($inputDetails);
+
 		// session the inputs
 		Session::put('tripType', $tripType);
 		Session::put('origin', $origin);
@@ -41,7 +45,7 @@ class AirlinesController extends \BaseController {
 	        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
 	        		->join('route', 'airfare.route', '=', 'route.RtID')
 					->join('airport', 'airport.ApID', '=', 'route.Origin')
-	        		->select('airport.location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+	        		->select('route.destination', 'airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 	        		->where('flight_schedule.flightdate', '=', $flightdate)
 	        		->orWhere(function($query) use ($origin, $destination)
 		            {
@@ -55,10 +59,14 @@ class AirlinesController extends \BaseController {
 
 	public function select()
 	{
-		// $productInfo = Flight::find($flight);
 		return View::make('content.select');
 
 	}
+
+	/*public function continue()
+	{
+
+	}*/
 
 	public function details()
 	{
