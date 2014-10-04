@@ -4,11 +4,7 @@
 <div class="container">
 	<div class='row'>
 		<div class="demo-headline">
-			<h1 class="demo-logo">
-				<div class="logo"></div>
-				Flat UI
-				<small>Free User Interface Kit</small>
-			</h1>
+			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 		</div> <!-- /demo-headline -->
 	
 
