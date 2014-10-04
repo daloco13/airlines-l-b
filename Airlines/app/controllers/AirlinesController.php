@@ -41,7 +41,7 @@ class AirlinesController extends \BaseController {
 	        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
 	        		->join('route', 'airfare.route', '=', 'route.RtID')
 					->join('airport', 'airport.ApID', '=', 'route.Origin')
-	        		->select('airport.location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+	        		->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 	        		->where('flight_schedule.flightdate', '=', $flightdate)
 	        		->orWhere(function($query) use ($origin, $destination)
 		            {
@@ -50,6 +50,7 @@ class AirlinesController extends \BaseController {
 		            })
 	           		->get();
 
+	    Session::put('results', $results);
 		return View::make('content.select')->with('results', $results);
 	}
 

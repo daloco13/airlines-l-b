@@ -26,7 +26,7 @@
 		{{ Form::open(['url'=>'/']) }}
 
 		<div class="col-md-12">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<h4 class='summary-heading'>Trip Summary</h4>
 					<h5 class='summary-title'>Departure</h5>
 					<b><span>Flight:</span>&nbsp;&nbsp;wtfwtfwtfwtfwtf<span id='oFlight'></span></b><br />
@@ -37,7 +37,7 @@
 	                <div class="summary-divider"></div>
 			</div>
 
-			<div class="col-md-8">
+			<div class="col-md-9">
 		    <h4>Contact Information</h4>
 			<div class="input-group">
 				<!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
@@ -45,7 +45,7 @@
 		    
 		    <div class='form-row'>
 		    <div class="panel">
-				<div class='col-xs-12'>
+				<div class='col-xs-16'>
 					<div class='col-xs-6 form-group required'>
 					<p><b>Address</b></p>
 						{{ Form::select('country', ['country'=>'Select a Country'],'', ['class'=>'form-control']) }}       
@@ -75,6 +75,44 @@
 					</div>
 					</div>
 				</div>	<!-- /form-row -->
+			</div> <!-- /container -->
+
+		
+		    <h4>Adult</h4>
+			<div class="input-group">
+				<!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+			</div>
+		    
+		    <div class='form-row'>
+		    <div class="panel">
+				<div class='col-xs-16'>
+					<div class='col-xs-3 form-group required'>
+					<p><b>Title</b></p>
+						{{ Form::select('title', ['title'=>'Select Title'],'', ['class'=>'form-control']) }}       
+					</div>
+
+					<div class="col-xs-4 form-group required">
+					<p><b>First Name</b></p>
+						{{ Form::text('firstname','',['placeholder'=>'First Name', 'class'=>'form-control']) }}
+					</div>
+
+					<div class="col-xs-4 form-group required">
+					<p><b>Second Name</b></p>
+						{{ Form::text('secondname','',['placeholder'=>'Second Name', 'class'=>'form-control']) }}
+					</div>
+
+					<div class="col-xs-5 form-group required">
+					<p><b>Birth Date</b></p>
+						{{ Form::text('birthday','',['placeholder'=>'Birth Date', 'class'=>'form-control']) }}
+					</div>
+
+					<div class='col-xs-5 form-group required'>
+					<p><b>Gender</b></p>
+						{{ Form::text('gender', '', ['class'=>'form-control', 'placeholder'=>'Gender']) }}       
+					</div>
+
+					</div>
+				</div>	<!-- /form-row -->
 			</div>
 		</div>
 
@@ -83,5 +121,5 @@
 		  {{ Form::close() }}
 
 	</div> <!-- /row -->
-</div> <!-- /container -->
+
 @endsection

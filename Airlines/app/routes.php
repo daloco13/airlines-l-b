@@ -17,7 +17,7 @@ Route::get('/','AirlinesController@index');
 Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
-Route::get('/select','AirlinesController@select');
+// Route::get('/search','AirlinesController@searchbro');
 
 
 //	guest details
