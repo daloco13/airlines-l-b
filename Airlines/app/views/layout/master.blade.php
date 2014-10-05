@@ -92,13 +92,13 @@
       });
     });
 
-      function writeResultDepart(text) {
-            var data = text.split(';');
-            $("#oFlight").html(data[1]);
-            $("#oDepart").html(data[2] + ', ' + data[3]);
-            $("#oDeparture").html(data[4]);
-            $("#oArrive").html(data[5] + ', ' + data[6]);
-            $("#oArrival").html(data[7]);
+      function writeResultDepart(value) {
+            var data = value.split(';');
+            $("#oFlight").html(data[0]);
+            $("#oDepart").html(data[1] );
+            $("#oDeparture").html(data[2]);
+            $("#oArrive").html(data[3]);
+            $("#oArrival").html(data[4]);
 
             
         }

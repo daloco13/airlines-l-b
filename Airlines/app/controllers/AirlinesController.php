@@ -48,12 +48,12 @@ class AirlinesController extends \BaseController {
 	        		->join('route', 'airfare.route', '=', 'route.RtID')
 					->join('airport', 'airport.ApID', '=', 'route.Origin')
 	        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-	        		->select('route.destination', 'airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+	        		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 	        		->where('flight_schedule.flightdate', '=', $flightdate)
 	        		->orWhere(function($query) use ($origin, $destination)
 		            {
-		                $query->where('airport.location', '=', $origin)
-		                      ->where('airport.location', '=', $destination);
+		                $query->where('airport.Location', '=', $origin)
+		                		->where('airport.Location', '=', $destination);
 		            })
 	           		->get();
 
