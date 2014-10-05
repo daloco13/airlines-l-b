@@ -18,6 +18,9 @@ Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
 // Route::get('/search','AirlinesController@searchbro');
+//Route::get('/select','AirlinesController@select');
+//Route::post('/', 'AirlinesController@');
+
 
 
 //	guest details
