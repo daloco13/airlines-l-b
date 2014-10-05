@@ -66,6 +66,11 @@ class AirlinesController extends \BaseController {
 		return View::make('content.details');
 	}
 
+	public function confirmation()
+	{
+		return View::make('content.confirmation');
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.

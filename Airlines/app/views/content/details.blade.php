@@ -11,7 +11,7 @@
 		  <div class="row demo-row">
 		    <div class="col-xs-12">
 		      <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
-		        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+		        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
 		          <ul class="nav navbar-nav">
 		            <li class="#"><a href="#fakelink">Search Flight<span class=""></span></a></li>
 		            <li class="#"><a href="#fakelink">Select Flight<span class=""></span></a></li>
@@ -111,6 +111,11 @@
 						{{ Form::text('gender', '', ['class'=>'form-control', 'placeholder'=>'Gender']) }}       
 					</div>
 
+			<div class='form-row'>
+			<div class='col-md-12 form-group'>
+				{{ Form::submit('Submit', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'submit', 'id'=>'submit']) }}
+			</div>
+		</div>
 					</div>
 				</div>	<!-- /form-row -->
 			</div>

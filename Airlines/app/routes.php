@@ -23,6 +23,10 @@ Route::post('/select', 'AirlinesController@searchbro');
 //	guest details
 Route::get('/details','AirlinesController@details');
 
+// confirmation
+Route::get('/confirmation','AirlinesController@confirmation');
+
+
 
 
 
