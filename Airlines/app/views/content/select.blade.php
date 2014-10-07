@@ -27,15 +27,39 @@
 
 		<div class="col-md-12">
 			<div class="col-md-4 panel panel-default">
-				<h5 class='summary-heading panel-heading'>Fake Taxi</h5>
-					<h6 class='summary-title'>Departure</h6>
-					<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
-					<span>From:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
-					<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
-					<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
-					<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
-	                <div class="summary-divider"></div>
+				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
+				<h6 class='summary-title'>Departure</h6>
+				<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
+				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
+				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
+				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
+				<div class="summary-divider"></div>
+
+				<h5 class="summary-title">Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></h5>
+				<div class="summary-divider"></div>
+				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><h6><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp; 0</span> Php(Dep) 
+					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></h6></div>
+						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><h6><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">0</span> Php(Dep) 
+
+							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></h6></div>
+								<div class="summary-divider"></div>
+								<h4 class='summary-heading'>Total: <span class='summary-right'><span id="total">0</span> Php</span></h4>
 			</div>
+
+
+
+			@if(Session::get('tripType') != 'oneway') 
+				<div class="col-md-4 panel panel-default">
+				<h6 class='summary-title'>Return</h6>
+				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
+				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
+				<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
+				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
+				<div class="summary-divider"></div>
+			@endif
+			
 
 			<div class="col-md-8 panel panel-default">
 		    <h4>Departure Trip</h4>
@@ -69,6 +93,39 @@
 			</div>
 		</table>
 		</div>
+
+		<div class="col-md-8 panel panel-default <?php if(Session::get('tripType') == 'oneway') echo 'hide'; ?>">
+			<h4>Returning Trip</h4>
+			<br>
+			<table class="table table-list-searcha">
+				<thead>
+					<tr>
+						<th><b>From</b></th>
+						<th><b>To</b></th>
+						<th><b>Flight</b></th>
+						<th><b>Fare</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					@if(!empty($results))
+					@foreach($results as $key)
+					<tr>
+						<td>{{ $key->Origin.' '.$key->departure }}</td>
+						<td>{{ $key->Destination.' '.$key->arrival }}</td>
+						<td>{{ $key->AcName }}</td>
+						<td>{{ $key->fare }}</td>
+						<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
+					</tr>
+					@endforeach
+					@else
+					<tr>
+						<td>Empty</td>
+					</tr>
+					@endif
+				</tbody>
+			</div>
+		</table>
+	</div>
 
 		<div class="col-md-4"></div>
 		<div class="col-md-8">

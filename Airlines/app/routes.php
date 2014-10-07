@@ -18,8 +18,6 @@ Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
 
-Route::get('/','AirlinesController@');
-
 
 
 //	guest details
