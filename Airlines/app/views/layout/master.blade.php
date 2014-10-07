@@ -43,6 +43,7 @@
       $('.has-error').removeClass('has-error');
     }
 
+    //  validation
     $(function() {
       $('form.require-validation').bind('submit', function(e) {
         var $form = $(e.target).closest('form');
@@ -68,6 +69,7 @@
       });
     });
 
+    // datepicker
       $(document).ready(function(){
       $("#intDepart").datepicker({
         dateFormat: 'yy-mm-dd',
@@ -92,6 +94,7 @@
       });
     });
 
+      // display on the trip summary upon clicking the radio button
       function writeResultDepart(value) {
             var data = value.split(';');
             $("#oFlight").html(data[0]);
@@ -103,15 +106,16 @@
             
         }
 
-        function writeResultReturn(text) {
-            var data = text.split(';');
-            $("#dFlight").html(data[1]);
-            $("#dDepart").html(data[2] + ', ' + data[3]);
-            $("#dDeparture").html(data[4]);
-            $("#dArrive").html(data[5] + ', ' + data[6]);
-            $("#dArrival").html(data[7]);
+      // display on the trip summary upon clicking the radio button
+      function writeResultReturn(text) {
+          var data = text.split(';');
+          $("#dFlight").html(data[1]);
+          $("#dDepart").html(data[2] + ', ' + data[3]);
+          $("#dDeparture").html(data[4]);
+          $("#dArrive").html(data[5] + ', ' + data[6]);
+          $("#dArrival").html(data[7]);
 
-            
-        }
+          
+      }
     </script>
 </html>    

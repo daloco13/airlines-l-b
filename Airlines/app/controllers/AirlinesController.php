@@ -20,7 +20,7 @@ class AirlinesController extends \BaseController {
 	*/
 	public function searchbro()
 	{
-		// inputs for search
+		// gets the inputs from index.blade.php
 		$tripType 	=	Input::get('intTripType');
 		$origin		=	Input::get('intFrom');
 		$destination =	Input::get('intTo');
@@ -33,7 +33,7 @@ class AirlinesController extends \BaseController {
 
         //$validation = Validator::make($inputDetails);
 
-		// session the inputs
+		// session the inputs in index.blade.php and will be used in the following page (that is, select)
 		Session::put('tripType', $tripType);
 		Session::put('origin', $origin);
 		Session::put('destination', $destination);
@@ -42,34 +42,32 @@ class AirlinesController extends \BaseController {
 		Session::put('adult', $adult);
 		Session::put('children', $children);
 
-		$tripType = Session::get('tripType');
-
 		$adult = Session::get('adult');
 		$children = Session::get('children');
 
 		$total_passenger = $adult + $children;
 
-		//Session::put('total_passenger', $total_passenger);
+		Session::put('total_passenger', $total_passenger);
 
-		
 
 		if($tripType != 'oneway')
 		{
-			$results =  DB::table('flight_schedule')
-        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
-        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
-        		->join('route', 'airfare.route', '=', 'route.RtID')
-				->join('airport', 'airport.ApID', '=', 'route.Origin')
-        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-        		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-        		->where('flight_schedule.flightdate', '=', $flightdate)
-        		->orWhere(function($query) use ($origin, $destination)
-	            {
-	                $query->where('airport.Location', '=', $origin)
-	                		->where('airport.Location', '=', $destination);
-	            })
-           		->get();
-				//where('flight_schedule.return', '=', $return)
+			$result_rt =  DB::table('flight_schedule')
+			    		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
+			    		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
+			    		->join('route', 'airfare.route', '=', 'route.RtID')
+						->join('airport', 'airport.ApID', '=', 'route.Origin')
+			    		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+
+			    		//->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+			    		->where('flight_schedule.flightdate', '=', $flightdate)
+			    		->orWhere(function($query) use ($origin, $destination)
+			            {
+			                $query->where('airport.Location', '=', $origin)
+			                		->where('airport.Location', '=', $destination);
+			            })
+			       		->get();
+						//where('flight_schedule.return', '=', $return)
 
 			Session::put('results_rt', $results_rt);
 			return View::make('content.select')->with('results_rt', $results_rt);
@@ -83,7 +81,7 @@ class AirlinesController extends \BaseController {
 		        		->join('route', 'airfare.route', '=', 'route.RtID')
 						->join('airport', 'airport.ApID', '=', 'route.Origin')
 		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-		        		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+		        		->select('route.Origin', 'route.Destination', 'airport.Location', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
 		        		->orWhere(function($query) use ($origin, $destination)
 			            {
@@ -94,6 +92,7 @@ class AirlinesController extends \BaseController {
 
 		    Session::put('results', $results);
 			return View::make('content.select')->with('results', $results);
+			// return var_dump($results[0]);
 		}
 	}
 
