@@ -1,31 +1,10 @@
 @extends('layout.master')
 
-<?php var_dump($results[0]); ?>
-	@foreach($results as $key)
-		{{ $key->location }}
-		<br>
-		{{ $key->flightdate }}
-		<br>
-		{{ $key->departure }}
-		<br>
-		{{ $key->AcName }}
-		<br>
-		{{ $key->fare }}
-		<br>
-	@endforeach
-	
-	{{ $value = Session::get('origin'); }}
-	{{ $value = Session::get('destination'); }}
-
 @section('content')
 <div class="container">
 	<div class='row'>
 		<div class="demo-headline">
-			<h1 class="demo-logo">
-				<div class="logo"></div>
-				Flat UI
-				<small>Free User Interface Kit</small>
-			</h1>
+			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 		</div> <!-- /demo-headline -->
 	
 
@@ -47,39 +26,61 @@
 		{{ Form::open(['url'=>'/']) }}
 
 		<div class="col-md-12">
-			<div class="col-md-4">
-				<h5 class='summary-heading'>Trip Summary</h5>
+			<div class="col-md-4 panel panel-default">
+				<h5 class='summary-heading panel-heading'>Fake Taxi</h5>
 					<h6 class='summary-title'>Departure</h6>
-					<span>Flight:</span>&nbsp;&nbsp;wtfwtfwtfwtfwtf<span id='oFlight'></span><br />
-					<span>Depart:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
+					<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
+					<span>From:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
 					<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
-					<span>Arrive:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
-					<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span>
+					<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
+					<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
 	                <div class="summary-divider"></div>
 			</div>
 
-			<div class="col-md-8">
+			<div class="col-md-8 panel panel-default">
 		    <h4>Departure Trip</h4>
 		    <br>
 			<table class="table table-list-searcha">
 				<thead>
 					<tr>
+						<th><b>From</b></th>
+						<th><b>To</b></th>
 						<th><b>Flight</b></th>
-						<th><b>Departure</b></th>
-						<th><b>Arrival</b></th>
-						<th><b>Trip Duration</b></th>
-		                <th><b>Price</b></th>
-						<th><b>Available</b></th>
+						<th><b>Fare</b></th>
 					</tr>
 				</thead>
 				<tbody>
-					<td>flights...</td>
+					@if(!empty($results))
+						@foreach($results as $key)
+							<tr>
+							<td>{{ $key->Origin.' '.$key->departure }}</td>
+							<td>{{ $key->Destination.' '.$key->arrival }}</td>
+							<td>{{ $key->AcName }}</td>
+							<td>{{ $key->fare }}</td>
+							<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />'  }}</td>
+							</tr>
+						@endforeach
+					@else
+						<tr>
+							<td>Empty</td>
+						</tr>
+					@endif
 				</tbody>
 			</div>
-
+		</table>
 		</div>
 
-		  
+		<div class="col-md-4"></div>
+		<div class="col-md-8">
+			<!-- Continue -->
+		    <div class='form-row'>
+				<div class='col-md-5 form-group'>
+					{{ Form::submit('continue', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'continue', 'id'=>'continue']) }}
+				</div>
+			</div>
+		</div>
+
+			  
 
 		  {{ Form::close() }}
 

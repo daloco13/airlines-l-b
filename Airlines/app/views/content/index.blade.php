@@ -3,11 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="demo-headline">
-		<h1 class="demo-logo">
-			<div class="logo"></div>
-			Flat UI
-			<small>Free User Interface Kit</small>
-		</h1>
+			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 	</div> <!-- /demo-headline -->
 	
 	<div class="col-md-12">
@@ -53,7 +49,7 @@
 		<select name="intFrom" id="intFrom" class='form-control'>
 			<option value="">From</option>
 				@foreach($airports as $key)
-				{{ '<option>'.$key->Location.'</option>' }}
+				{{ '<option value="$key->ApID">'.$key->Location.'</option>' }}
 				@endforeach
 		</select>       
 		</div>
@@ -65,7 +61,7 @@
 			<select name="intTo" id="intTo" class='form-control'>
 				<option value="">To</option>
 					@foreach($airports as $key)
-					{{ '<option>'.$key->Location.'</option>' }}
+					{{ '<option value="$key->ApID">'.$key->Location.'</option>' }}
 					@endforeach
 			</select> 
 		</div>

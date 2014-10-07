@@ -92,5 +92,26 @@
       });
     });
 
+      function writeResultDepart(value) {
+            var data = value.split(';');
+            $("#oFlight").html(data[0]);
+            $("#oDepart").html(data[1] );
+            $("#oDeparture").html(data[2]);
+            $("#oArrive").html(data[3]);
+            $("#oArrival").html(data[4]);
+
+            
+        }
+
+        function writeResultReturn(text) {
+            var data = text.split(';');
+            $("#dFlight").html(data[1]);
+            $("#dDepart").html(data[2] + ', ' + data[3]);
+            $("#dDeparture").html(data[4]);
+            $("#dArrive").html(data[5] + ', ' + data[6]);
+            $("#dArrival").html(data[7]);
+
+            
+        }
     </script>
 </html>    

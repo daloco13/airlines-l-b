@@ -17,11 +17,17 @@ Route::get('/','AirlinesController@index');
 Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
+
 Route::get('/','AirlinesController@');
+
 
 
 //	guest details
 Route::get('/details','AirlinesController@details');
+
+// confirmation
+Route::get('/confirmation','AirlinesController@confirmation');
+
 
 
 
