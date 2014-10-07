@@ -25,6 +25,7 @@
 
 		{{ Form::open(['url'=>'/']) }}
 
+		<?php var_dump($input); ?>
 
 <form role="form">
   <div class="form-group">

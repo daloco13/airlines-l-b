@@ -17,14 +17,15 @@ Route::get('/','AirlinesController@index');
 Route::post('/select', 'AirlinesController@searchbro');
 
 //	select flight
+Route::get('/select', 'AirlinesController@select');
+Route::post('/passengers', 'AirlinesController@select_flight');
 
-
-
-//	guest details
-Route::get('/details','AirlinesController@details');
+//	passenger details
+Route::get('/passengers','AirlinesController@details');
+Route::post('/confirmation','AirlinesController@confirmation');
 
 // confirmation
-Route::get('/confirmation','AirlinesController@confirmation');
+Route::get('/final','AirlinesController@final');
 
 
 
