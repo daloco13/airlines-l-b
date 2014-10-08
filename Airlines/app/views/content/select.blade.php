@@ -6,22 +6,22 @@
 		<div class="demo-headline">
 			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 		</div> <!-- /demo-headline -->
-	
 
-		  <div class="row demo-row">
-		    <div class="col-xs-12">
-		      <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
-		        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
-		          <ul class="nav navbar-nav">
-		            <li class="#">{{ link_to('/','Search Flight') }}<span class=""></span></a></li>
-		            <li class="active">{{ link_to('/select','Select Flight') }}<span class=""></span></a></li>
-		            <li class="disabled"><a href="#fakelink">Guest Details<span class=""></span></a></li>
-		            <li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
-		           </ul>
-		        </div><!-- /.navbar-collapse -->
-		      </nav><!-- /navbar -->
-		    </div>
-		  </div> <!-- /row -->
+
+		<div class="row demo-row">
+			<div class="col-xs-12">
+				<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+					<div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
+						<ul class="nav navbar-nav">
+							<li class="#">{{ link_to('/','Search Flight') }}<span class=""></span></a></li>
+							<li class="active">{{ link_to('/select','Select Flight') }}<span class=""></span></a></li>
+							<li class="disabled"><a href="#fakelink">Guest Details<span class=""></span></a></li>
+							<li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
+						</ul>
+					</div><!-- /.navbar-collapse -->
+				</nav><!-- /navbar -->
+			</div>
+		</div> <!-- /row -->
 
 		{{ Form::open(['url'=>'/']) }}
 
@@ -34,113 +34,116 @@
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
 				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
-				<div class="summary-divider"></div>
+				<span>Total:</span>&nbsp;&nbsp;<span id='oFare'></span><br />
 
-				<h5 class="summary-title">Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></h5>
-				<div class="summary-divider"></div>
-				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><h6><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp;0</span> Php(Dep) 
-					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></h6></div>
-						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><h6><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">0</span> Php(Dep) 
+				@if(Session::get('tripType') != 'oneway') 
+				<div class="col-md-4">
+					<h6 class='summary-title'>Return</h6>
+					<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
+					<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
+					<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
+					<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
+					<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
+					<div class="summary-divider"></div>
+				</div>
+				@endif
 
-							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></h6></div>
-								<div class="summary-divider"></div>
-								<h4 class='summary-heading'>Total: <span class='summary-right'><span id="total">0</span> Php</span></h4>
-			</div>
+				<div class="col-md-4">
+					<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
+					<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp;0</span> Php(Dep) 
+					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
+						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">&nbsp;0</span> Php(Dep) 
 
-
-
-			@if(Session::get('tripType') != 'oneway') 
-				<div class="col-md-4 panel panel-default">
-				<h6 class='summary-title'>Return</h6>
-				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
-				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
-				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
-				<div class="summary-divider"></div>
-			@endif
-			
-
-			<div class="col-md-8 panel panel-default">
-		    <h4>Departure Trip</h4>
-		    <br>
-			<table class="table table-list-searcha">
-				<thead>
-					<tr>
-						<th><b>From</b></th>
-						<th><b>To</b></th>
-						<th><b>Flight</b></th>
-						<th><b>Fare</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					@if(!empty($results))
-						@foreach($results as $key)
-							<tr>
-							<td>{{ $key->Location.' '.$key->departure }}</td>
-							<td>{{ $key->Origin.' '.$key->arrival }}</td>
-							<td>{{ $key->AcName }}</td>
-							<td>{{ $key->fare }}</td>
-							<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />'  }}</td>
-							</tr>
-						@endforeach
-					@else
-						<tr>
-							<td>Empty</td>
-						</tr>
-					@endif
-				</tbody>
-			</div>
-		</table>
-		</div>
-
-		<div class="col-md-8 panel panel-default <?php if(Session::get('tripType') == 'oneway') echo 'hide'; ?>">
-			<h4>Returning Trip</h4>
-			<br>
-			<table class="table table-list-searcha">
-				<thead>
-					<tr>
-						<th><b>From</b></th>
-						<th><b>To</b></th>
-						<th><b>Flight</b></th>
-						<th><b>Fare</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					@if(!empty($results))
-					@foreach($results as $key)
-					<tr>
-						<td>{{ $key->Origin.' '.$key->departure }}</td>
-						<td>{{ $key->Destination.' '.$key->arrival }}</td>
-						<td>{{ $key->AcName }}</td>
-						<td>{{ $key->fare }}</td>
-						<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
-					</tr>
-					@endforeach
-					@else
-					<tr>
-						<td>Empty</td>
-					</tr>
-					@endif
-				</tbody>
-			</div>
-		</table>
-	</div>
-
-		<div class="col-md-4"></div>
-		<div class="col-md-8">
-			<!-- Continue -->
-		    <div class='form-row'>
-				<div class='col-md-5 form-group'>
-					{{ Form::submit('continue', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'continue', 'id'=>'continue']) }}
+					<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
+						<div class="summary-divider"></div>
+						<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total">0</span> Php</span></h6>
 				</div>
 			</div>
-		</div>
 
-			  
+							<div class="col-md-1"></div>
 
-		  {{ Form::close() }}
+							<div class="col-md-7 panel panel-default">
+								<h4>Departure Trip</h4>
+								From <b> {{ Session::get('origin') }} </b> to <b> {{ Session::get('destination') }} </b>
+								<br>
+								<table class="table table-list-searcha">
+									<thead>
+										<tr>
+											<th><b>From</b></th>
+											<th><b>To</b></th>
+											<th><b>Flight</b></th>
+											<th><b>Fare</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										@if(!empty($results))
+										@foreach($results as $key)
+										<tr>
+											<td>{{ $key->AirportCode.' '.$key->departure }}</td>
+											<td>{{ $key->Origin.' '.$key->arrival }}</td>
+											<td>{{ $key->AcName }}</td>
+											<td>{{ $key->fare }}</td>
+											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultDepart(value)" />'  }}</td>
+										</tr>
+										@endforeach
+										@else
+										<tr>
+											<td>Empty</td>
+										</tr>
+										@endif
+									</tbody>
+								</div>
+							</table>
+						</div>
 
-	</div> <!-- /row -->
-</div> <!-- /container -->
-@endsection
+						
+						<div class="col-md-8 panel panel-default <?php if(Session::get('tripType') == 'oneway') echo 'hide'; ?>">
+							<h4>Returning Trip</h4>
+							<br>
+							<table class="table table-list-searcha">
+								<thead>
+									<tr>
+										<th><b>From</b></th>
+										<th><b>To</b></th>
+										<th><b>Flight</b></th>
+										<th><b>Fare</b></th>
+									</tr>
+								</thead>
+								<tbody>
+									@if(!empty($results))
+									@foreach($results as $key)
+									<tr>
+										<td>{{ $key->Origin.' '.$key->departure }}</td>
+										<td>{{ $key->Destination.' '.$key->arrival }}</td>
+										<td>{{ $key->AcName }}</td>
+										<td>{{ $key->fare }}</td>
+										<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
+									</tr>
+									@endforeach
+									@else
+									<tr>
+										<td>Empty</td>
+									</tr>
+									@endif
+								</tbody>
+							</div>
+						</table>
+					</div>
+
+					<div class="col-md-4"></div>
+					<div class="col-md-8">
+						<!-- Continue -->
+						<div class='form-row'>
+							<div class='col-md-5 form-group'>
+								{{ Form::submit('continue', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'continue', 'id'=>'continue']) }}
+							</div>
+						</div>
+					</div>
+
+
+
+					{{ Form::close() }}
+
+				</div> <!-- /row -->
+			</div> <!-- /container -->
+			@endsection

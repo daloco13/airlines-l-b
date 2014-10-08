@@ -102,8 +102,16 @@
             $("#oDeparture").html(data[2]);
             $("#oArrive").html(data[3]);
             $("#oArrival").html(data[4]);
+            //$("#oFare").html(data[5]);
 
-            
+            var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
+            var child = (( {{ Session::get('children') }} * data[5])).toFixed(0);
+
+            $("#adultDep").html(adult);
+            $("#childDep").html(child);
+            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
+            $("#total").html(total);
+                     
         }
 
       // display on the trip summary upon clicking the radio button
@@ -114,6 +122,14 @@
           $("#dDeparture").html(data[4]);
           $("#dArrive").html(data[5] + ', ' + data[6]);
           $("#dArrival").html(data[7]);
+
+          var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
+          var child = (( {{ Session::get('children') }} * data[5])).toFixed(0);
+
+          $("#adultDep").html(adult);
+          $("#childDep").html(child);
+          var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
+          $("#total").html(total);
 
           
       }
