@@ -34,7 +34,6 @@
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
 				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
-				<span>Total:</span>&nbsp;&nbsp;<span id='oFare'></span><br />
 
 				@if(Session::get('tripType') != 'oneway') 
 				<div class="col-md-4">
@@ -50,7 +49,7 @@
 
 				<div class="col-md-4">
 					<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
-					<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp;0</span> Php(Dep) 
+					<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}&nbsp;</span></span><span class='summary-right'><span id="adultDep">0&nbsp;&nbsp;</span> Php(Dep) 
 					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
 						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">&nbsp;0</span> Php(Dep) 
 
