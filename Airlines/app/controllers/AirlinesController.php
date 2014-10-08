@@ -49,7 +49,6 @@ class AirlinesController extends \BaseController {
 
 		Session::put('total_passenger', $total_passenger);
 
-
 		$results =  DB::table('flight_schedule')
 		        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
 		        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
@@ -98,17 +97,39 @@ class AirlinesController extends \BaseController {
 
 	}
 
-	/*public function continue()
+	public function select_flight()
 	{
+		$select = Input::get('selectplaneDepart');
 
-	}*/
+		Session::put('select', $select);
+
+		$select = explode(';',Session::get('select'));
+
+		//return var_dump($select);
+
+		return View::make('content.details')->with('select', $select);
+	}
 
 	public function details()
 	{
 		return View::make('content.details');
 	}
 
+
+
 	public function confirmation()
+	{
+		$input = Input::all();
+
+		Session::put('input', $input);
+
+		// return var_dump($input);
+
+		return View::make('content.confirmation')->with('input', $input);;
+
+	}
+
+	public function final_process()
 	{
 		return View::make('content.confirmation');
 	}

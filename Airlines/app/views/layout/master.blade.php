@@ -105,7 +105,7 @@
             //$("#oFare").html(data[5]);
 
             var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
-            var child = (( {{ Session::get('children') }} * data[5])).toFixed(0);
+            var child = (( ( {{ Session::get('children') }} * data[5] - {{ Session::get('children') }} * data[5] * 0.15)  )).toFixed(0);
 
             $("#adultDep").html(adult);
             $("#childDep").html(child);
@@ -133,5 +133,15 @@
 
           
       }
+
+      $(document).ready(function(){
+      $(".intBday").datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeYear: true,
+        changeMonth: true,
+        showMonthAfterYear: true,
+        maxDate: 0
+      });
+    });
     </script>
 </html>    

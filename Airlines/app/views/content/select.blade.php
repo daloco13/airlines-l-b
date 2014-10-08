@@ -23,7 +23,7 @@
 			</div>
 		</div> <!-- /row -->
 
-		{{ Form::open(['url'=>'/']) }}
+		{{ Form::open(['url'=>'/passengers']) }}
 
 		<div class="col-md-12">
 			<div class="col-md-4 panel panel-default">
