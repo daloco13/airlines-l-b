@@ -116,32 +116,34 @@
 
       // display on the trip summary upon clicking the radio button
       function writeResultReturn(text) {
-          var data = text.split(';');
-          $("#dFlight").html(data[1]);
-          $("#dDepart").html(data[2] + ', ' + data[3]);
-          $("#dDeparture").html(data[4]);
-          $("#dArrive").html(data[5] + ', ' + data[6]);
-          $("#dArrival").html(data[7]);
+          var data = value.split(';');
+            $("#oFlight").html(data[0]);
+            $("#oDepart").html(data[1] );
+            $("#oDeparture").html(data[2]);
+            $("#oArrive").html(data[3]);
+            $("#oArrival").html(data[4]);
+            //$("#oFare").html(data[5]);
 
-          var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
-          var child = (( {{ Session::get('children') }} * data[5])).toFixed(0);
+            var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
+            var child = (( ( {{ Session::get('children') }} * data[5] - {{ Session::get('children') }} * data[5] * 0.15)  )).toFixed(0);
 
-          $("#adultDep").html(adult);
-          $("#childDep").html(child);
-          var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
-          $("#total").html(total);
-
-          
+            $("#adultDep").html(adult);
+            $("#childDep").html(child);
+            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
+            $("#total").html(total);
       }
 
-      $(document).ready(function(){
-      $(".intBday").datepicker({
-        dateFormat: 'yy-mm-dd',
-        changeYear: true,
-        changeMonth: true,
-        showMonthAfterYear: true,
-        maxDate: 0
+        $(document).ready(function(){
+        $(".intBday").datepicker({
+          dateFormat: 'yy-mm-dd',
+          changeYear: true,
+          changeMonth: true,
+          showMonthAfterYear: true,
+          maxDate: 0
+        });
       });
-    });
+
+      
+
     </script>
 </html>    

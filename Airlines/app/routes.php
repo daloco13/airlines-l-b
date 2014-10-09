@@ -25,7 +25,7 @@ Route::get('/passengers','AirlinesController@details');
 Route::post('/confirmation','AirlinesController@confirmation');
 
 // confirmation
-Route::get('/final','AirlinesController@final');
+Route::get('/finale','AirlinesController@finale');
 
 
 

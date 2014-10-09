@@ -2,6 +2,7 @@
 
 class AirlinesController extends \BaseController {
 
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -57,12 +58,11 @@ class AirlinesController extends \BaseController {
 		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
-		        		->orWhere(function($query) use ($origin, $destination)
-			            {
-			                $query->where('airport.Location', '=', $origin)
-			                		->where('airport.Location', '=', $destination);
-			            })
-		           		->get();
+       					->where( function ( $query ) use ($origin)
+       					{
+       						$query->where('airport.Location', '=', $origin);
+       					})
+       					->get();
 
 	    Session::put('results', $results);
 		return View::make('content.select')->with('results', $results);
@@ -78,12 +78,11 @@ class AirlinesController extends \BaseController {
 			    		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 			    		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 			    		->where('flight_schedule.flightdate', '=', $flightdate)
-			    		->orWhere(function($query) use ($origin, $destination)
-			            {
-			                $query->where('airport.Location', '=', $origin)
-			                		->where('airport.Location', '=', $destination);
-			            })
-			       		->get();
+       					->where( function ( $query ) use ($origin)
+       					{
+       						$query->where('airport.Location', '=', $origin);
+       					})
+       					->get();
 						//where('flight_schedule.return', '=', $return)
 
 			Session::put('results_rt', $results_rt);
@@ -105,6 +104,9 @@ class AirlinesController extends \BaseController {
 
 		$select = explode(';',Session::get('select'));
 
+		
+		
+
 		//return var_dump($select);
 
 		return View::make('content.details')->with('select', $select);
@@ -123,13 +125,13 @@ class AirlinesController extends \BaseController {
 
 		Session::put('input', $input);
 
-		// return var_dump($input);
+		// return var_dump($summary);
 
-		return View::make('content.confirmation')->with('input', $input);;
+		return View::make('content.confirmation')->with('input', $input);
 
 	}
 
-	public function final_process()
+	public function finale()
 	{
 		return View::make('content.confirmation');
 	}

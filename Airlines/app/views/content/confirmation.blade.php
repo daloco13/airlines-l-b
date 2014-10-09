@@ -1,5 +1,7 @@
 @extends('layout.master')
 
+{{ Session::get('summary'); }}
+
 @section('content')
 <div class="container">
 	<div class='row'>
@@ -11,7 +13,7 @@
 		  <div class="row demo-row">
 		    <div class="col-xs-12">
 		      <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
-		        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+		        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
 		          <ul class="nav navbar-nav">
 		            <li class="#"><a href="#fakelink">Search Flight<span class=""></span></a></li>
 		            <li class="#"><a href="#fakelink">Select Flight<span class=""></span></a></li>
@@ -24,8 +26,7 @@
 		  </div> <!-- /row -->
 
 		{{ Form::open(['url'=>'/']) }}
-
-		<?php var_dump($input); ?>
+<!-- -->
 
 <form role="form">
   <div class="form-group">
@@ -59,3 +60,22 @@ Clause 1 – Definitions
 “Travel Fund” means the fund created for the Passenger’s convenience which can be used to offset the expenses of future bookings.</textarea>
   </div>
 </form>
+
+<div class="row" style="text-align: right;">
+	<span class="button-checkbox form-group required">
+		  <button type="button" class="form-control" data-color="primary"><input type="checkbox" class="" id="cbox" />I have read and fully understand the guidelines.</button>
+		  
+	 </span>
+	</div>
+	<div class='form-row'>
+		<div class='col-md-12 form-group'>
+			<button class='form-control btn btn-primary submit-button' type='submit' id='submit_button' name='submit' onclick="test()">Confirm</button>
+		</div>
+	</div>
+	<div class='form-row'>
+		<div class='col-md-12 error form-group hide'>
+			<div class='alert-danger alert'>
+				Please accept the agreements and try again.
+			</div>
+		</div>
+	</div>

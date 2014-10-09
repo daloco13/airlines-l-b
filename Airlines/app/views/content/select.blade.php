@@ -23,7 +23,7 @@
 			</div>
 		</div> <!-- /row -->
 
-		{{ Form::open(['url'=>'/passengers']) }}
+		{{ Form::open(array('url' => '/passengers', 'class'=>'require-validation')) }}
 
 		<div class="col-md-12">
 			<div class="col-md-4 panel panel-default">
@@ -36,32 +36,32 @@
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
 
 				@if(Session::get('tripType') != 'oneway') 
-				<div class="col-md-4">
-					<h6 class='summary-title'>Return</h6>
-					<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
-					<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
-					<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
-					<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
-					<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
-					<div class="summary-divider"></div>
-				</div>
+				<!-- 	<div class="col-md-4"> -->
+				<h6 class='summary-title'>Return</h6>
+				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
+				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
+				<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
+				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
+				<div class="summary-divider"></div>
+				<!-- </div> -->
 				@endif
 
-				<div class="col-md-4">
-					<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
-					<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}&nbsp;</span></span><span class='summary-right'><span id="adultDep">0&nbsp;&nbsp;</span> Php(Dep) 
+				<!-- 		<div class="col-md-4"> -->
+				<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
+				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}&nbsp;</span></span><span class='summary-right'><span id="adultDep">0&nbsp;&nbsp;</span> Php(Dep) 
 					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
 						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">&nbsp;0</span> Php(Dep) 
 
-					<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
-						<div class="summary-divider"></div>
-						<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total">0</span> Php</span></h6>
-				</div>
-			</div>
+							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
+								<div class="summary-divider"></div>
+								<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total">0</span> Php</span></h6>
+							</div>
+							<!-- 	</div> -->
 
-							<div class="col-md-1"></div>
+							<!-- 	<div class="col-md-1"></div> -->
 
-							<div class="col-md-7 panel panel-default">
+							<div class="col-md-8 panel panel-default">
 								<h4>Departure Trip</h4>
 								From <b> {{ Session::get('origin') }} </b> to <b> {{ Session::get('destination') }} </b>
 								<br>
@@ -95,7 +95,7 @@
 							</table>
 						</div>
 
-						
+
 						<div class="col-md-8 panel panel-default <?php if(Session::get('tripType') == 'oneway') echo 'hide'; ?>">
 							<h4>Returning Trip</h4>
 							<br>
@@ -116,7 +116,7 @@
 										<td>{{ $key->Destination.' '.$key->arrival }}</td>
 										<td>{{ $key->AcName }}</td>
 										<td>{{ $key->fare }}</td>
-										<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
+										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
 									</tr>
 									@endforeach
 									@else
@@ -133,8 +133,15 @@
 					<div class="col-md-8">
 						<!-- Continue -->
 						<div class='form-row'>
-							<div class='col-md-5 form-group'>
-								{{ Form::submit('continue', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'continue', 'id'=>'continue']) }}
+							<div class='col-md-12 form-group'>
+								{{ Form::submit('Continue', ['class'=>'btn btn-block btn-lg btn-primary', 'name'=>'submit', 'id'=>'submit']) }}
+							</div>
+						</div>
+					</div>
+					<div class='form-row'>
+						<div class='col-md-12 error form-group hide'>
+							<div class='alert-danger alert'>
+								Please choose the available flight and try again.
 							</div>
 						</div>
 					</div>
@@ -146,3 +153,23 @@
 				</div> <!-- /row -->
 			</div> <!-- /container -->
 			@endsection
+
+			<script type="text/javascript">
+				$(function() {
+					$('form.require-validation').bind('submit', function(e) {
+						if(!$("input[name=selectplaneDepart]:checked").val()) {
+							$('.hide').removeClass('hide');
+							e.preventDefault();
+						}
+
+
+						<?php
+						if(Session::get('tripType') != 'oneway') {
+							echo "if(!$('input[name=selectplaneReturn]:checked').val()) {
+								$('.hide').removeClass('hide');
+								e.preventDefault();}";
+							}
+							?>
+						});
+				});
+			</script>

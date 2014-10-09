@@ -2,6 +2,7 @@
 
 class Airline extends Eloquent {
 	
+   public static $summary;
 	 protected $primaryKey = "ApID";
      protected $table = 'airport';
      //public $timestamps = false;
