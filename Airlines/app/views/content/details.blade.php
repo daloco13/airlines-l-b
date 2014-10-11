@@ -13,9 +13,9 @@
 				<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
 					<div class="collapse navbar-collapse navbar-right" id="navbar-collapse-01">
 						<ul class="nav navbar-nav">
-							<li class="#"><a href="#fakelink">Search Flight<span class=""></span></a></li>
-							<li class="#"><a href="#fakelink">Select Flight<span class=""></span></a></li>
-							<li class="active"><a href="#fakelink">Guest Details<span class=""></span></a></li>
+							<li class="#">{{ link_to('/','Search Flight') }}<span class=""></span></a></li>
+							<li class="#">{{ link_to('/select','Select Flight') }}<span class=""></span></a></li>
+							<li class="active">{{ link_to('/passengers','Guest Details') }}<span class=""></span></a></li>
 							<li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
@@ -23,7 +23,7 @@
 			</div>
 		</div> <!-- /row -->
 
-		{{ Form::open(array('url' => '/confirmation', 'class'=>'require-validation')) }}
+		{{ Form::open(array('url' => '/finale', 'class'=>'require-validation')) }}
 
 		<?php 
 
@@ -31,6 +31,7 @@
 		$children = Session::get('children') * $select[5] - ((Session::get('children') * $select[5])*.15);
 
 		$total = $adult + $children;
+
 		?>
 
 		<div class="col-md-12">
@@ -70,14 +71,18 @@
 
 <?php  
 
-	$summary = $select[0];
+	$summary_0 = $select[0];
+	$summary_1 = $select[1];
+	$summary_2 = $select[2];
+	$summary_3 = $select[3];
+	$summary_4 = $select[4];
 
-	$arrayName = array(
-						'flight' => , );
+	Session::put('summary_0', $summary_0);
+	Session::put('summary_1', $summary_1);
+	Session::put('summary_2', $summary_2);
+	Session::put('summary_3', $summary_3);
+	Session::put('summary_4', $summary_4);
 
-	// $summary = array('flight' => $select[0]);
-
-	Session::put('summary', $summary);
 ?>
 
 
@@ -89,7 +94,7 @@
 										<div class='col-xs-16'>
 											<div class='col-xs-6 form-group required'>
 												<p><b>Address</b></p>
-												{{ Form::select('country', ['country'=>'Select a Country', 'phil'=>'Philippines'],'', ['class'=>'form-control']) }}       
+												{{ Form::select('country', ['country'=>'Select a Country', 'Philippines'=>'Philippines'],'', ['class'=>'form-control']) }}       
 											</div>
 
 											<div class='col-xs-6 form-group required'>
@@ -112,7 +117,7 @@
 
 											<div class='col-xs-6 form-group required'>
 												<p><b>Mobile Phone</b></p>
-												{{ Form::text('mobilephone', '', ['class'=>'form-control', 'placeholder'=>'Mobile Phone']) }}       
+												{{ Form::text('Mobile', '', ['class'=>'form-control', 'placeholder'=>'Mobile Phone', 'id'=>'Mobile']) }}       
 											</div>
 
 										</div>
@@ -250,9 +255,6 @@
 						{{ Form::close() }}
 
 					</div> <!-- col-md-12 -->
-
-					@endsection
-
 					<script type="text/javascript">
 						$(function() {
 							$('form.require-validation').bind('submit', function(e) {
@@ -288,3 +290,6 @@
 							});
 						});
 					</script>
+					@endsection
+
+					

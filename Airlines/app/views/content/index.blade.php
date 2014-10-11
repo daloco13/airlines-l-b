@@ -2,6 +2,36 @@
 
 @section('content')
 <div class="container">
+
+<script type="text/javascript">
+	
+	//  validation
+    $(function() {
+      $('form.require-validation').bind('submit', function(e) {
+        var $form = $(e.target).closest('form');
+        if(document.getElementById('intTripTypeReturn').checked == false) {
+          inputSelector = ['input[id=intDepart]', 'select'].join(', ');
+        } else {
+          inputSelector = ['input[type=text]', 'select'].join(', ');
+        }
+        $inputs       = $form.find('.required').find(inputSelector),
+        $errorMessage = $form.find('div.error'),
+        valid         = true;       
+
+        $errorMessage.addClass('hide');
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+          var $input = $(el);
+          if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('hide');
+                e.preventDefault(); // cancel on first error
+            }
+        });
+      });
+    });
+</script>
+
 	<div class="demo-headline">
 			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 	</div> <!-- /demo-headline -->
@@ -127,3 +157,4 @@
 	</div> 	<!-- /col-md-12 -->
 </div> <!-- /container -->
 @endsection
+

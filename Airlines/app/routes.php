@@ -22,10 +22,11 @@ Route::post('/passengers', 'AirlinesController@select_flight');
 
 //	passenger details
 Route::get('/passengers','AirlinesController@details');
-Route::post('/confirmation','AirlinesController@confirmation');
+Route::post('/finale','AirlinesController@finale');
 
 // confirmation
 Route::get('/finale','AirlinesController@finale');
+Route::post('/done','AirlinesController@done');
 
 
 

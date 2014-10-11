@@ -49,14 +49,14 @@ class AirlinesController extends \BaseController {
 		$total_passenger = $adult + $children;
 
 		Session::put('total_passenger', $total_passenger);
-
+		
 		$results =  DB::table('flight_schedule')
 		        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
 		        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
 		        		->join('route', 'airfare.route', '=', 'route.RtID')
 						->join('airport', 'airport.ApID', '=', 'route.Origin')
 		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'airport AS ap' , 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
        					->where( function ( $query ) use ($origin)
        					{
@@ -96,6 +96,9 @@ class AirlinesController extends \BaseController {
 
 	}
 
+	/*
+		
+	*/
 	public function select_flight()
 	{
 		$select = Input::get('selectplaneDepart');
@@ -117,9 +120,10 @@ class AirlinesController extends \BaseController {
 		return View::make('content.details');
 	}
 
-
-
-	public function confirmation()
+	/*
+		
+	*/
+	public function finale()
 	{
 		$input = Input::all();
 
@@ -128,12 +132,11 @@ class AirlinesController extends \BaseController {
 		// return var_dump($summary);
 
 		return View::make('content.confirmation')->with('input', $input);
-
 	}
 
-	public function finale()
+	public function done()
 	{
-		return View::make('content.confirmation');
+		return View::make('content.done');
 	}
 
 

@@ -2,6 +2,25 @@
 
 @section('content')
 <div class="container">
+<script type="text/javascript">
+				$(function() {
+					$('form.require-validation').bind('submit', function(e) {
+						if(!$("input[name=selectplaneDepart]:checked").val()) {
+							$('.hide').removeClass('hide');
+							e.preventDefault();
+						}
+
+
+						<?php
+						if(Session::get('tripType') != 'oneway') {
+							echo "if(!$('input[name=selectplaneReturn]:checked').val()) {
+								$('.hide').removeClass('hide');
+								e.preventDefault();}";
+							}
+							?>
+						});
+				});
+</script>
 	<div class='row'>
 		<div class="demo-headline">
 			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
@@ -15,7 +34,7 @@
 						<ul class="nav navbar-nav">
 							<li class="#">{{ link_to('/','Search Flight') }}<span class=""></span></a></li>
 							<li class="active">{{ link_to('/select','Select Flight') }}<span class=""></span></a></li>
-							<li class="disabled"><a href="#fakelink">Guest Details<span class=""></span></a></li>
+							<li class="disabled">{{ link_to('/passengers','Guest Details') }}<span class=""></span></a></li>
 							<li class="disabled"><a href="#fakelink">Confirmation<span class=""></span></a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
@@ -79,7 +98,7 @@
 										@foreach($results as $key)
 										<tr>
 											<td>{{ $key->AirportCode.' '.$key->departure }}</td>
-											<td>{{ $key->Origin.' '.$key->arrival }}</td>
+											<td>{{ $key->Destination.' '.$key->arrival }}</td>
 											<td>{{ $key->AcName }}</td>
 											<td>{{ $key->fare }}</td>
 											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultDepart(value)" />'  }}</td>
@@ -153,23 +172,3 @@
 				</div> <!-- /row -->
 			</div> <!-- /container -->
 			@endsection
-
-			<script type="text/javascript">
-				$(function() {
-					$('form.require-validation').bind('submit', function(e) {
-						if(!$("input[name=selectplaneDepart]:checked").val()) {
-							$('.hide').removeClass('hide');
-							e.preventDefault();
-						}
-
-
-						<?php
-						if(Session::get('tripType') != 'oneway') {
-							echo "if(!$('input[name=selectplaneReturn]:checked').val()) {
-								$('.hide').removeClass('hide');
-								e.preventDefault();}";
-							}
-							?>
-						});
-				});
-			</script>
