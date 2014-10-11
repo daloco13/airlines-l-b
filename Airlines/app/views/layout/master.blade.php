@@ -109,27 +109,27 @@
 
             $("#adultDep").html(adult);
             $("#childDep").html(child);
-            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
+            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html())<?php if(Session::get('tripType') != 'oneway') echo ' + parseInt($("#adultRet").html()) + parseInt($("#childRet").html())'; ?>;
             $("#total").html(total);
                      
         }
 
       // display on the trip summary upon clicking the radio button
-      function writeResultReturn(text) {
+      function writeResultReturn(value) {
           var data = value.split(';');
-            $("#oFlight").html(data[0]);
-            $("#oDepart").html(data[1] );
-            $("#oDeparture").html(data[2]);
-            $("#oArrive").html(data[3]);
-            $("#oArrival").html(data[4]);
+            $("#dFlight").html(data[0]);
+            $("#dDepart").html(data[1] );
+            $("#dDeparture").html(data[2]);
+            $("#dArrive").html(data[3]);
+            $("#dArrival").html(data[4]);
             //$("#oFare").html(data[5]);
 
             var adult = ( {{ Session::get('adult') }} * data[5]).toFixed(0);
             var child = (( ( {{ Session::get('children') }} * data[5] - {{ Session::get('children') }} * data[5] * 0.15)  )).toFixed(0);
 
-            $("#adultDep").html(adult);
-            $("#childDep").html(child);
-            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html());
+            $("#adultRet").html(adult);
+            $("#childRet").html(child);
+            var total = parseInt($("#adultDep").html()) + parseInt($("#childDep").html()) + parseInt($("#adultRet").html()) + parseInt($("#childRet").html());
             $("#total").html(total);
       }
 

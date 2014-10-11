@@ -51,7 +51,7 @@
 				<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
 				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}&nbsp;</span></span><span class='summary-right'><span id="adultDep">0&nbsp;&nbsp;</span> Php(Dep) 
 					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
-						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">&nbsp;0</span> Php(Dep) 
+						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }} &nbsp;</span></span><span class='summary-right'><span id="childDep">&nbsp;0</span> Php(Dep) 
 
 							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
 								<div class="summary-divider"></div>
@@ -116,7 +116,7 @@
 										<td>{{ $key->Destination.' '.$key->arrival }}</td>
 										<td>{{ $key->AcName }}</td>
 										<td>{{ $key->fare }}</td>
-										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.' " onclick="writeResultDepart(value)" />' }}</td>
+										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultReturn(value)" />' }}</td>
 									</tr>
 									@endforeach
 									@else
