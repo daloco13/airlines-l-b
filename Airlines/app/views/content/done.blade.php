@@ -59,7 +59,7 @@
 									<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total"></span> {{ Session::get('fck') }} Php</span></h6>
 								</div>
 		</div>
-
+		{{ link_to('/','Search Flight Again?') }}
 	</div>
 
 
