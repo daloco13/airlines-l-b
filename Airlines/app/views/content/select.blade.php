@@ -49,9 +49,9 @@
 				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
 				<h6 class='summary-title'>Departure</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'></span><br />
+				<span>From:</span>&nbsp;&nbsp; {{ Session::get('origin') }} <span id='oDepart'></span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'></span><br />
+				<span>To:</span>&nbsp;&nbsp; {{ Session::get('destination') }} <span id='oArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
 
 				@if(Session::get('tripType') != 'oneway') 
@@ -97,8 +97,8 @@
 										@if(!empty($results))
 										@foreach($results as $key)
 										<tr>
-											<td>{{ $key->AirportCode.' '.$key->departure }}</td>
-											<td>{{ $key->Destination.' '.$key->arrival }}</td>
+											<td>{{ Session::get('origin').' '.$key->departure }}</td>
+											<td>{{ Session::get('destination').' '.$key->arrival }}</td>
 											<td>{{ $key->AcName }}</td>
 											<td>{{ $key->fare }}</td>
 											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultDepart(value)" />'  }}</td>
@@ -106,7 +106,7 @@
 										@endforeach
 										@else
 										<tr>
-											<td>Empty</td>
+											<td><p>No flights available</p></td>
 										</tr>
 										@endif
 									</tbody>
@@ -140,7 +140,7 @@
 									@endforeach
 									@else
 									<tr>
-										<td>Empty</td>
+										<td><p>No flights available</p></td>
 									</tr>
 									@endif
 								</tbody>

@@ -56,7 +56,7 @@ class AirlinesController extends \BaseController {
 		        		->join('route', 'airfare.route', '=', 'route.RtID')
 						->join('airport', 'airport.ApID', '=', 'route.Origin')
 		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'airport AS ap' , 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
+		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
        					->where( function ( $query ) use ($origin)
        					{
@@ -130,6 +130,8 @@ class AirlinesController extends \BaseController {
 		Session::put('input', $input);
 
 		// return var_dump($summary);
+
+		$passengerDetails = array();
 
 		return View::make('content.confirmation')->with('input', $input);
 	}

@@ -32,6 +32,10 @@
 
 		$total = $adult + $children;
 
+
+		Session::put('fck', $total);
+		Session::put('select', $select);
+
 		?>
 
 		<div class="col-md-12">
@@ -39,9 +43,9 @@
 				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
 				<h6 class='summary-title'>Departure</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'> {{ $select[0] }} </span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ $select[1] }} </span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ Session::get('origin') }} {{ $select[1] }} </span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'> {{ $select[2] }} </span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ $select[3] }} </span><br />
+				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ Session::get('destination') }} {{ $select[3] }} </span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'> {{ $select[4] }} </span><br />
 				<span>Total:</span>&nbsp;&nbsp;<span id='oFare'> {{ $select[5] }} </span><br />
 
@@ -60,30 +64,30 @@
 
 
 				<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
-				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp;0</span> Php(Dep) 
+				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp; {{ $adult }} </span> Php(Dep) 
 					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
-						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep">   </span> Php(Dep) 
+						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep"> {{ $children }}  </span> Php(Dep) 
 
 							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
 								<div class="summary-divider"></div>
 								<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total">{{ $total }}</span> Php</span></h6>
 							</div>
 
-<?php  
+						<?php  
 
-	$summary_0 = $select[0];
-	$summary_1 = $select[1];
-	$summary_2 = $select[2];
-	$summary_3 = $select[3];
-	$summary_4 = $select[4];
+							$summary_0 = $select[0];
+							$summary_1 = $select[1];
+							$summary_2 = $select[2];
+							$summary_3 = $select[3];
+							$summary_4 = $select[4];
 
-	Session::put('summary_0', $summary_0);
-	Session::put('summary_1', $summary_1);
-	Session::put('summary_2', $summary_2);
-	Session::put('summary_3', $summary_3);
-	Session::put('summary_4', $summary_4);
+							Session::put('summary_0', $summary_0);
+							Session::put('summary_1', $summary_1);
+							Session::put('summary_2', $summary_2);
+							Session::put('summary_3', $summary_3);
+							Session::put('summary_4', $summary_4);
 
-?>
+						?>
 
 
 							<div class="col-md-8">
@@ -140,19 +144,19 @@
 													<div class="form-row">
 														<div class="col-xs-3 form-group required">
 															<label class="control-label">Title</label>
-															<select name="Title'.$i.'" id="Title" class="form-control">
+															<select name="Title" id="Title" class="form-control">
 																<option value="">Title</option>
-																<option value="master">Master</option>
-																<option value="miss">Miss</option>
+																<option value="Master">Master</option>
+																<option value="Miss">Miss</option>
 															</select>
 														</div>
 														<div class="col-xs-4 form-group required">
 															<label class="control-label">First Name</label>
-															<input autocomplete="off" class="form-control"size="20" type="text" name="FName'.$i.'">
+															<input autocomplete="off" class="form-control"size="20" type="text" name="FName<?php '.$i.' ?>">
 														</div>
 														<div class="col-xs-5 form-group required">
 															<label class="control-label">Last Name</label>
-															<input autocomplete="off" class="form-control "size="20" type="text" name="LName'.$i.'">
+															<input autocomplete="off" class="form-control "size="20" type="text" name="LName<?php '.$i.' ?>">
 														</div>
 													</div>
 													<div class="form-row">
@@ -162,14 +166,14 @@
 														</div>
 														<div class="col-xs-4 form-group required">
 															<label class="control-label">Gender</label>
-															<select name="Gender'.$i.'" id="Gender" class="form-control">
+															<select name="Gender<?php '.$i.' ?>" id="Gender" class="form-control">
 																<option value="">Select Gender</option>
 																<option value="Male">Male</option>
 																<option value="Female">Female</option>
 															</select>
 														</div>
 														<div class="col-xs-2">
-															<input autocomplete="off" class="hide" type="text" name="Type'.$i.'" value="Child">
+															<input autocomplete="off" class="hide" type="text" name="TypeGender<?php '.$i.' ?>" value="Child">
 														</div>
 													</div>
 												</div>
@@ -190,19 +194,19 @@
 														<div class="form-row">
 															<div class="col-xs-3 form-group required">
 																<label class="control-label">Title</label>
-																<select name="Title'.$i.'" id="Title" class="form-control">
+																<select name="Title<?php '.$i.' ?>" id="Title" class="form-control">
 																	<option value="">Title</option>
-																	<option value="master">Master</option>
-																	<option value="miss">Miss</option>
+																	<option value="Master">Master</option>
+																	<option value="Miss">Miss</option>
 																</select>
 															</div>
 															<div class="col-xs-4 form-group required">
 																<label class="control-label">First Name</label>
-																<input autocomplete="off" class="form-control"size="20" type="text" name="FName'.$i.'">
+																<input autocomplete="off" class="form-control"size="20" type="text" name="FName<?php '.$i.' ?>">
 															</div>
 															<div class="col-xs-5 form-group required">
 																<label class="control-label">Last Name</label>
-																<input autocomplete="off" class="form-control "size="20" type="text" name="LName'.$i.'">
+																<input autocomplete="off" class="form-control "size="20" type="text" name="LName<?php '.$i.' ?>">
 															</div>
 														</div>
 														<div class="form-row">
@@ -212,14 +216,14 @@
 															</div>
 															<div class="col-xs-4 form-group required">
 																<label class="control-label">Gender</label>
-																<select name="Gender'.$i.'" id="Gender" class="form-control">
+																<select name="Gender<?php '.$i.' ?>" id="Gender" class="form-control">
 																	<option value="">Select Gender</option>
 																	<option value="Male">Male</option>
 																	<option value="Female">Female</option>
 																</select>
 															</div>
 															<div class="col-xs-2">
-																<input autocomplete="off" class="hide" type="text" name="Type'.$i.'" value="Child">
+																<input autocomplete="off" class="hide" type="text" name="Type<?php '.$i.' ?>" value="Child">
 															</div>
 														</div>
 													</div>
