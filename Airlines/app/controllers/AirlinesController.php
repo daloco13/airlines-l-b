@@ -49,7 +49,7 @@ class AirlinesController extends \BaseController {
 		$total_passenger = $adult + $children;
 
 		Session::put('total_passenger', $total_passenger);
-		
+
 		$results =  DB::table('flight_schedule')
 		        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
 		        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
@@ -58,15 +58,19 @@ class AirlinesController extends \BaseController {
 		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
-       					->where( function ( $query ) use ($origin)
+       					/*->where( function ( $query ) use ($origin)
        					{
        						$query->where('airport.Location', '=', $origin);
+       					})*/
+       					->where( function ( $query ) use ($destination)
+       					{
+       						$query->where('airport.Location', '=', $destination);
        					})
        					->get();
 
 	    Session::put('results', $results);
-		return View::make('content.select')->with('results', $results);
 
+		return View::make('content.select')->with('results', $results);
 	
 		if($tripType != 'oneway')
 		{
@@ -86,8 +90,10 @@ class AirlinesController extends \BaseController {
 						//where('flight_schedule.return', '=', $return)
 
 			Session::put('results_rt', $results_rt);
-			return View::make('content.select')->with(array('results', $results, 'results_rt', $results_rt));
+			return View::make('content.select')->with(array('results_rt', $results_rt));
 		}
+
+
 	}
 
 	public function select()
@@ -103,11 +109,15 @@ class AirlinesController extends \BaseController {
 	{
 		$select = Input::get('selectplaneDepart');
 
+		// $select_2 = Input::get('selectplaneReturn');
+
 		Session::put('select', $select);
+
+		// Session::put('select', $select_2);
 
 		$select = explode(';',Session::get('select'));
 
-		
+		// $select_2 = explode(';',Session::get('select_2'));			
 		
 
 		//return var_dump($select);

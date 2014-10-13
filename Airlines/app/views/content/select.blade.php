@@ -58,9 +58,9 @@
 				<!-- 	<div class="col-md-4"> -->
 				<h6 class='summary-title'>Return</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
+				<span>From:</span>&nbsp;&nbsp; {{ Session::get('destination') }}<span id='dDepart'></span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
+				<span>To:</span>&nbsp;&nbsp; {{ Session::get('origin') }} <span id='dArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
 				<div class="summary-divider"></div>
 				<!-- </div> -->
@@ -97,8 +97,8 @@
 										@if(!empty($results))
 										@foreach($results as $key)
 										<tr>
-											<td>{{ Session::get('origin').' '.$key->departure }}</td>
-											<td>{{ Session::get('destination').' '.$key->arrival }}</td>
+											<td>{{ Session::get('origin').' '.date('H:i', strtotime($key->departure)) }}</td>
+											<td>{{ Session::get('destination').' '.date('H:i', strtotime($key->arrival)) }}</td>
 											<td>{{ $key->AcName }}</td>
 											<td>{{ $key->fare }}</td>
 											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultDepart(value)" />'  }}</td>
@@ -131,8 +131,10 @@
 									@if(!empty($results))
 									@foreach($results as $key)
 									<tr>
-										<td>{{ $key->Origin.' '.$key->departure }}</td>
-										<td>{{ $key->Destination.' '.$key->arrival }}</td>
+										<?php $new = $key->departure + 2; ?>
+										<?php $new_2 = $key->arrival + 2 ?>
+										<td>{{ Session::get('destination').' '.$new.':00' }}</td>
+										<td>{{ Session::get('origin').' '.$new_2.':00' }}</td>
 										<td>{{ $key->AcName }}</td>
 										<td>{{ $key->fare }}</td>
 										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultReturn(value)" />' }}</td>
