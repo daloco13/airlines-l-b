@@ -79,7 +79,7 @@
 		<select name="intFrom" id="intFrom" class='form-control'>
 			<option value="">From</option>
 				@foreach($airports as $key)
-				{{ '<option>'.$key->Location.'</option>' }}
+				{{ '<option value="'.$key->ApID.'">'.$key->Location.'</option>' }}
 				@endforeach
 		</select>       
 		</div>
@@ -91,7 +91,7 @@
 			<select name="intTo" id="intTo" class='form-control'>
 				<option value="">To</option>
 					@foreach($airports as $key)
-					{{ '<option>'.$key->Location.'</option>' }}
+					{{ '<option value="'.$key->ApID.'">'.$key->Location.'</option>' }}
 					@endforeach
 			</select> 
 		</div>

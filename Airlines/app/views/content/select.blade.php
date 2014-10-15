@@ -49,18 +49,18 @@
 				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
 				<h6 class='summary-title'>Departure</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp; {{ Session::get('origin') }} <span id='oDepart'></span><br />
+				<span>From:</span>&nbsp;&nbsp; <span id='oDepart'></span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp; {{ Session::get('destination') }} <span id='oArrive'></span><br />
+				<span>To:</span>&nbsp;&nbsp; <span id='oArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
 
 				@if(Session::get('tripType') != 'oneway') 
 				<!-- 	<div class="col-md-4"> -->
 				<h6 class='summary-title'>Return</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp; {{ Session::get('destination') }}<span id='dDepart'></span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp; {{ Session::get('origin') }} <span id='dArrive'></span><br />
+				<span>To:</span>&nbsp;&nbsp; <span id='dArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
 				<div class="summary-divider"></div>
 				<!-- </div> -->
@@ -82,7 +82,7 @@
 
 							<div class="col-md-8 panel panel-default">
 								<h4>Departure Trip</h4>
-								From <b> {{ Session::get('origin') }} </b> to <b> {{ Session::get('destination') }} </b>
+								From <b> @if($results){{ $results[0]->oLocation }} </b> to <b> {{ $results[0]->dLocation }} @endif</b>
 								<br>
 								<table class="table table-list-searcha">
 									<thead>
@@ -97,11 +97,11 @@
 										@if(!empty($results))
 										@foreach($results as $key)
 										<tr>
-											<td>{{ Session::get('origin').' '.date('H:i', strtotime($key->departure)) }}</td>
-											<td>{{ Session::get('destination').' '.date('H:i', strtotime($key->arrival)) }}</td>
+											<td>{{ $key->oLocation.' '.date('H:i', strtotime($key->Departure)) }}</td>
+											<td>{{ $key->dLocation.' '.date('H:i', strtotime($key->Arrival)) }}</td>
 											<td>{{ $key->AcName }}</td>
-											<td>{{ $key->fare }}</td>
-											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultDepart(value)" />'  }}</td>
+											<td>{{ $key->Fare }}</td>
+											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->oLocation.';'.$key->Departure.';'.$key->dLocation.';'.$key->Arrival.';'.$key->Fare.' " onclick="writeResultDepart(value)" />'  }}</td>
 										</tr>
 										@endforeach
 										@else
@@ -131,13 +131,13 @@
 									@if(!empty($results_rt))
 									@foreach($results_rt as $key)
 									<tr>
-										<?php $new = $key->departure + 2; ?>
-										<?php $new_2 = $key->arrival + 2 ?>
+										<?php //$new = $key->departure + 2; ?>
+										<?php //$new_2 = $key->arrival + 2 ?>
 										<td>{{ Session::get('destination').' '.$new.':00' }}</td>
 										<td>{{ Session::get('origin').' '.$new_2.':00' }}</td>
 										<td>{{ $key->AcName }}</td>
-										<td>{{ $key->fare }}</td>
-										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->departure.';'.$key->Destination.';'.$key->arrival.';'.$key->fare.' " onclick="writeResultReturn(value)" />' }}</td>
+										<td>{{ $key->Fare }}</td>
+										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->Departure.';'.$key->Destination.';'.$key->Arrival.';'.$key->Fare.' " onclick="writeResultReturn(value)" />' }}</td>
 									</tr>
 									@endforeach
 									@else

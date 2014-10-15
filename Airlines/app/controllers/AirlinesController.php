@@ -11,7 +11,6 @@ class AirlinesController extends \BaseController {
 	public function index()
 	{	
 		$results = DB::table('airport')
-				   ->select('Location')
 				   ->get();
 		return View::make('content.index',['airports'=>$results]);
 	}
@@ -50,38 +49,43 @@ class AirlinesController extends \BaseController {
 
 		Session::put('total_passenger', $total_passenger);
 
-		$results =  DB::table('flight_schedule')
-		        		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
-		        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
-		        		->join('route', 'airfare.route', '=', 'route.RtID')
-						->join('airport', 'airport.ApID', '=', 'route.Origin')
-		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-		        		->where('flight_schedule.flightdate', '=', $flightdate)
-       					->where( function ( $query ) use ($origin)
-       					{
-       						$query->where('airport.Location', '=', $origin);
-       					})
-       					->get();
+		/*$results = "SELECT *, r.RtID, r.Origin, ap.AirportCode AS oAirportCode, ap.Location AS oLocation, ap.Country AS oCountry, r.Destination, ap1.AirportCode AS dAirportCode, ap1.Location AS dLocation, ap1.Country AS dCountry 
+			FROM Flight_Schedule fs, AirFare af, Route r, Aircrafts ac, airport ap, airport ap1 
+
+			WHERE fs.AirFare = af.AfID AND fs.AirCraft = ac.AcID AND af.Route = r.RtID AND r.Origin = ap.ApID AND  r.Destination = ap1.ApID 
+
+			AND r.Origin = ".$_SESSION['intFrom']." AND r.Destination = ".$_SESSION['intTo']." AND ac.Capacity >= ".$_SESSION['totalPassenger']." 
+
+			AND fs.FlightDate = '".$_SESSION['intDepart']."'
+			";*/
+		$results = DB::table('flight_schedule as fs')
+				->join('airfare as af', 'fs.airfare', '=', 'af.AfID')
+				->join('route as r', 'af.route', '=', 'r.RtID')
+				->join('aircrafts as ac', 'fs.aircraft','=','ac.AcID')
+				->join('airport as ap', 'ap.ApID', '=', 'r.Origin')
+				->join('airport as ap1', 'ap1.ApID', '=', 'r.Destination')
+				->where('fs.flightdate', '=', $flightdate)
+				->where('r.Origin', '=', $origin)
+				->where('r.Destination', '=', $destination)
+				->select('*', 'r.RtID', 'r.Origin', 'ap.AirportCode AS oAirportCode', 'ap.Location AS oLocation', 'ap.Country AS oCountry', 'r.Destination', 'ap1.AirportCode AS dAirportCode', 'ap1.Location AS dLocation', 'ap1.Country AS dCountry')
+				->get();
 
 	    Session::put('results', $results);
-
 		
+		//return var_dump($results);
 	
 		if($tripType != 'oneway')
 		{
-			$results_rt =  DB::table('flight_schedule')
-			    		->join('aircrafts', 'flight_schedule.aircraft','=','aircrafts.AcID')
-			    		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
-			    		->join('route', 'airfare.route', '=', 'route.RtID')
-						->join('airport', 'airport.ApID', '=', 'route.Origin')
-			    		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
-			    		->where('flight_schedule.flightdate', '=', $flightdate)
-       					->where( function ( $query ) use ($origin)
-       					{
-       						$query->where('airport.Location', '=', $origin);
-       					})
-       					->get();
-						//where('flight_schedule.return', '=', $return)
+			$results_rt = DB::table('flight_schedule as fs')
+						->join('airfare as af', 'fs.airfare', '=', 'af.AfID')
+						->join('route as r', 'af.route', '=', 'r.RtID')
+						->join('aircrafts as ac', 'fs.aircraft','=','ac.AcID')
+						->join('airport as ap', 'ap.ApID', '=', 'r.Origin')
+						->join('airport as ap1', 'ap1.ApID', '=', 'r.Destination')
+						->where('fs.flightdate', '=', $return)
+						->where('r.Origin', '=', $destination)
+						->where('r.Destination', '=', $origin)
+						->get();
 
 			Session::put('results_rt', $results_rt);
 			return View::make('content.select')->with('results_rt', $results_rt)->with('results', $results);
