@@ -53,6 +53,7 @@
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'></span><br />
 				<span>To:</span>&nbsp;&nbsp; <span id='oArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'></span><br />
+			
 
 				@if(Session::get('tripType') != 'oneway') 
 				<!-- 	<div class="col-md-4"> -->

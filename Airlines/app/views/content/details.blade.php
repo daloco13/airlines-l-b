@@ -89,7 +89,7 @@
 
 						<?php  
 							//	summary of trip departure
-							$summary_0 = $select[0];
+							/*$summary_0 = $select[0];
 							$summary_1 = $select[1];
 							$summary_2 = $select[2];
 							$summary_3 = $select[3];
@@ -112,7 +112,7 @@
 							Session::put('summary2_1', $summary2_1);
 							Session::put('summary2_2', $summary2_2);
 							Session::put('summary2_3', $summary2_3);
-							Session::put('summary2_4', $summary2_4);
+							Session::put('summary2_4', $summary2_4);*/
 
 						?>
 
