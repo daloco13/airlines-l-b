@@ -128,8 +128,8 @@
 									</tr>
 								</thead>
 								<tbody>
-									@if(!empty($results))
-									@foreach($results as $key)
+									@if(!empty($results_rt))
+									@foreach($results_rt as $key)
 									<tr>
 										<?php $new = $key->departure + 2; ?>
 										<?php $new_2 = $key->arrival + 2 ?>

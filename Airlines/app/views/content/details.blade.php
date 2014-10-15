@@ -27,13 +27,27 @@
 
 		<?php 
 
+		//	computation for departure fare
 		$adult = Session::get('adult') * $select[5];
 		$children = Session::get('children') * $select[5] - ((Session::get('children') * $select[5])*.15);
-
 		$total = $adult + $children;
+		Session::put('done_total', $total);
 
+		//	computation for departure and route fare
+		if(Session::get('tripType')!='oneway')
+		{
+			$adult = Session::get('adult') * $select_2[5];
+			$children = Session::get('children') * $select_2[5] - ((Session::get('children') * $select_2[5])*.15);
+			$total2 = $adult + $children;
+			Session::put('total2', $total2);
 
-		Session::put('fck', $total);
+			$total_rt = $total + $total2;
+			Session::put('total_rt', $total_rt);
+
+		}
+
+	
+		
 		Session::put('select', $select);
 
 		?>
@@ -47,34 +61,34 @@
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'> {{ $select[2] }} </span><br />
 				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ Session::get('destination') }} {{ $select[3] }} </span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'> {{ $select[4] }} </span><br />
-				<span>Total:</span>&nbsp;&nbsp;<span id='oFare'> {{ $select[5] }} </span><br />
+				
 
 
 				@if(Session::get('tripType') != 'oneway') 
 				<!-- 	<div class="col-md-4"> -->
 				<h6 class='summary-title'>Return</h6>
-				<span>Flight:</span>&nbsp;&nbsp;<span id='dFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='dDepart'></span><br />
-				<span>Departure:</span>&nbsp;&nbsp;<span id='dDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='dArrive'></span><br />
-				<span>Arrival:</span>&nbsp;&nbsp;<span id='dArrival'></span><br />
+				<span>Flight:</span>&nbsp;&nbsp;{{ $select_2[0] }}<span id='dFlight'></span><br />
+				<span>From:</span>&nbsp;&nbsp; {{ Session::get('destination') }} {{ $select_2[1] }}<span id='dDepart'></span><br />
+				<span>Departure:</span>&nbsp;&nbsp;{{ $select_2[2] }}<span id='dDeparture'></span><br />
+				<span>To:</span>&nbsp;&nbsp; {{ Session::get('origin') }} {{ $select_2[3] }}<span id='dArrive'></span><br />
+				<span>Arrival:</span>&nbsp;&nbsp;{{ $select_2[4] }}<span id='dArrival'></span><br />
 				<div class="summary-divider"></div>
 				<!-- 	</div> -->
 				@endif
 
 
 				<span>Total Passengers: <span class='summary-right'>{{ Session::get('total_passenger'); }}</span></span>
-				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp; {{ $adult }} </span> Php(Dep) 
-					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet">0</span> Php(Ret)'; ?></span></div>
+				<div class="<?php if(Session::get('adult') <= 0) echo "hide"; ?>"><span class='summary-name'>Adult x <span id="intAdult">{{ Session::get('adult'); }}</span></span><span class='summary-right'><span id="adultDep"> &nbsp; {{ $total }} </span> Php(Dep) 
+					<?php if(Session::get('tripType') != 'oneway') echo ' + <span id="adultRet"> '.$total2.' </span> Php(Ret)'; ?></span></div>
 						<div class="<?php if(Session::get('children') <= 0) echo "hide"; ?>"><span class='summary-name'>Child (2-11) x <span id="intChild">{{ Session::get('children'); }}</span></span><span class='summary-right'><span id="childDep"> {{ $children }}  </span> Php(Dep) 
 
 							<?php if(Session::get('tripType') != 'oneway') echo '+ <span id="childRet">0</span> Php(Ret)'; ?></span></div>
 								<div class="summary-divider"></div>
-								<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total">{{ $total }}</span> Php</span></h6>
+								<h6 class='summary-heading'>Total: <span class='summary-right'><span id="total"> @if(Session::get('tripType') != 'oneway'){{ $total_rt }} @else {{ $total }} @endif </span> Php</span></h6>
 							</div>
 
 						<?php  
-
+							//	summary of trip departure
 							$summary_0 = $select[0];
 							$summary_1 = $select[1];
 							$summary_2 = $select[2];
@@ -86,6 +100,19 @@
 							Session::put('summary_2', $summary_2);
 							Session::put('summary_3', $summary_3);
 							Session::put('summary_4', $summary_4);
+
+							//	summary of trip return
+							$summary2_0 = $select_2[0];
+							$summary2_1 = $select_2[1];
+							$summary2_2 = $select_2[2];
+							$summary2_3 = $select_2[3];
+							$summary2_4 = $select_2[4];
+
+							Session::put('summary2_0', $summary2_0);
+							Session::put('summary2_1', $summary2_1);
+							Session::put('summary2_2', $summary2_2);
+							Session::put('summary2_3', $summary2_3);
+							Session::put('summary2_4', $summary2_4);
 
 						?>
 

@@ -55,22 +55,17 @@ class AirlinesController extends \BaseController {
 		        		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
 		        		->join('route', 'airfare.route', '=', 'route.RtID')
 						->join('airport', 'airport.ApID', '=', 'route.Origin')
-		        		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->select('route.Origin', 'route.Destination', 'airport.AirportCode', 'airport.Location', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 		        		->where('flight_schedule.flightdate', '=', $flightdate)
-       					/*->where( function ( $query ) use ($origin)
+       					->where( function ( $query ) use ($origin)
        					{
        						$query->where('airport.Location', '=', $origin);
-       					})*/
-       					->where( function ( $query ) use ($destination)
-       					{
-       						$query->where('airport.Location', '=', $destination);
        					})
        					->get();
 
 	    Session::put('results', $results);
 
-		return View::make('content.select')->with('results', $results);
+		
 	
 		if($tripType != 'oneway')
 		{
@@ -79,7 +74,6 @@ class AirlinesController extends \BaseController {
 			    		->join('airfare', 'flight_schedule.airfare', '=', 'airfare.AfID')
 			    		->join('route', 'airfare.route', '=', 'route.RtID')
 						->join('airport', 'airport.ApID', '=', 'route.Origin')
-			    		// ->select('airport.Location', 'flight_schedule.flightdate', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 			    		->select('route.Origin', 'route.Destination', 'flight_schedule.departure', 'flight_schedule.arrival', 'aircrafts.AcName', 'airfare.fare')
 			    		->where('flight_schedule.flightdate', '=', $flightdate)
        					->where( function ( $query ) use ($origin)
@@ -90,9 +84,10 @@ class AirlinesController extends \BaseController {
 						//where('flight_schedule.return', '=', $return)
 
 			Session::put('results_rt', $results_rt);
-			return View::make('content.select')->with(array('results_rt', $results_rt));
+			return View::make('content.select')->with('results_rt', $results_rt)->with('results', $results);
 		}
 
+		return View::make('content.select')->with('results', $results);
 
 	}
 
@@ -107,22 +102,24 @@ class AirlinesController extends \BaseController {
 	*/
 	public function select_flight()
 	{
+		//  radio button for departure
 		$select = Input::get('selectplaneDepart');
-
-		// $select_2 = Input::get('selectplaneReturn');
+		//  radio button for return
+		$select_2 = Input::get('selectplaneReturn');
 
 		Session::put('select', $select);
 
-		// Session::put('select', $select_2);
+		Session::put('select_2', $select_2);
 
+		//  explode the value in the radio button(departure)
 		$select = explode(';',Session::get('select'));
-
-		// $select_2 = explode(';',Session::get('select_2'));			
+		//  explode the value in the radio button(return)
+		$select_2 = explode(';',Session::get('select_2'));			
 		
 
 		//return var_dump($select);
 
-		return View::make('content.details')->with('select', $select);
+		return View::make('content.details')->with('select', $select)->with('select_2', $select_2);
 	}
 
 	public function details()
