@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2014 at 05:09 AM
+-- Generation Time: Oct 17, 2014 at 05:28 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -127,14 +127,14 @@ CREATE TABLE IF NOT EXISTS `airfare` (
 
 INSERT INTO `airfare` (`AfID`, `Route`, `Fare`) VALUES
 (1, 1, 1100),
-(2, 1, 1200),
+(2, 3, 1200),
 (3, 1, 1300),
-(4, 1, 1400),
+(4, 5, 1400),
 (5, 1, 1500),
 (6, 2, 1100),
 (7, 2, 1200),
-(8, 2, 1300),
-(9, 2, 1400),
+(8, 4, 1300),
+(9, 1, 1400),
 (10, 2, 1500);
 
 -- --------------------------------------------------------
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `airport` (
   `Location` varchar(65) NOT NULL,
   `Country` varchar(65) NOT NULL,
   PRIMARY KEY (`ApID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `airport`
@@ -158,7 +158,9 @@ CREATE TABLE IF NOT EXISTS `airport` (
 INSERT INTO `airport` (`ApID`, `AirportCode`, `Location`, `Country`) VALUES
 (1, 'CEB', 'Cebu', 'Philippines'),
 (2, 'MAN', 'Metro Manila', 'Philippines'),
-(3, 'BTY', 'Booty Work', 'Booty');
+(3, 'CAM', 'Camiguin', 'Philippines'),
+(4, 'BOH', 'Bohol', 'Philippines'),
+(5, 'MIN', 'Mindanao', 'Philippines');
 
 -- --------------------------------------------------------
 
@@ -233,16 +235,16 @@ CREATE TABLE IF NOT EXISTS `flight_schedule` (
 --
 
 INSERT INTO `flight_schedule` (`FsID`, `FlightDate`, `Departure`, `Arrival`, `AirCraft`, `AirFare`) VALUES
-(1, '2014-10-03', '08:00:00', '09:00:00', 1, 1),
-(2, '2014-10-03', '09:00:00', '10:00:00', 2, 2),
-(3, '2014-10-03', '10:00:00', '11:00:00', 3, 3),
-(4, '2014-10-03', '11:00:00', '12:00:00', 4, 4),
-(5, '2014-10-03', '12:00:00', '13:00:00', 5, 5),
-(6, '2014-10-03', '13:00:00', '14:00:00', 6, 6),
-(7, '2014-10-03', '14:00:00', '15:00:00', 7, 7),
-(8, '2014-10-03', '15:00:00', '16:00:00', 8, 8),
-(9, '2014-10-03', '16:00:00', '17:00:00', 9, 9),
-(10, '2014-10-03', '17:00:00', '18:00:00', 10, 10);
+(1, '2014-10-18', '08:00:00', '09:00:00', 1, 1),
+(2, '2014-10-17', '09:00:00', '10:00:00', 2, 2),
+(3, '2014-10-17', '10:00:00', '11:00:00', 3, 3),
+(4, '2014-10-17', '11:00:00', '12:00:00', 4, 4),
+(5, '2014-10-17', '12:00:00', '13:00:00', 5, 5),
+(6, '2014-10-17', '13:00:00', '14:00:00', 6, 6),
+(7, '2014-10-17', '14:00:00', '15:00:00', 7, 7),
+(8, '2014-10-17', '15:00:00', '16:00:00', 8, 8),
+(9, '2014-10-17', '16:00:00', '17:00:00', 9, 9),
+(10, '2014-10-17', '17:00:00', '18:00:00', 10, 10);
 
 -- --------------------------------------------------------
 
@@ -311,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `route` (
   PRIMARY KEY (`RtID`),
   KEY `fk_origin` (`Origin`),
   KEY `fk_destination` (`Destination`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `route`
@@ -319,7 +321,10 @@ CREATE TABLE IF NOT EXISTS `route` (
 
 INSERT INTO `route` (`RtID`, `Origin`, `Destination`) VALUES
 (1, 1, 2),
-(2, 2, 1);
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 3),
+(5, 5, 2);
 
 -- --------------------------------------------------------
 
