@@ -58,6 +58,7 @@ class AirlinesController extends \BaseController {
 
 			AND fs.FlightDate = '".$_SESSION['intDepart']."'
 			";*/
+
 		$results = DB::table('flight_schedule as fs')
 				->join('airfare as af', 'fs.airfare', '=', 'af.AfID')
 				->join('route as r', 'af.route', '=', 'r.RtID')
@@ -89,10 +90,10 @@ class AirlinesController extends \BaseController {
 						->get();
 
 			Session::put('results_rt', $results_rt);
-			return View::make('content.select')->with('results_rt', $results_rt)->with('results', $results);
+			return View::make('content.select')->with('results_rt', $results_rt)->with('results', $results)->with('flightdate', $flightdate)->with('return', $return);
 		}
 
-		return View::make('content.select')->with('results', $results);
+		return View::make('content.select')->with('results', $results)->with('flightdate', $flightdate)->with('return', $return);
 
 	}
 

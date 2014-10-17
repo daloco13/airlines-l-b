@@ -21,11 +21,15 @@
 						});
 				});
 </script>
+
 	<div class='row'>
 		<div class="demo-headline">
 			<div class="logo">{{ HTML::image('img/logo2.png', $alt="logo2", $attributes = array()) }}</div>
 		</div> <!-- /demo-headline -->
 
+		{{ Session::put('flightdate', $flightdate); }}
+
+		{{ Session::put('return', $return); }}
 
 		<div class="row demo-row">
 			<div class="col-xs-12">
