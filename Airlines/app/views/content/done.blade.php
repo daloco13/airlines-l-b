@@ -28,6 +28,10 @@
 	<div class="col-md-12">
 
 		<div class="col-md-12">
+			<div class="demo-headline">
+				<div class="logo">{{ HTML::image('img/logo-big.png', $alt="logo-big", $attributes = array()) }}</div>
+			</div> <!-- /demo-headline -->
+			
 			<div class="col-md-2"></div>
 			<div class="col-md-8 panel panel-default">
 					<h5 class='summary-heading panel-heading'>Flight Details</h5>					
