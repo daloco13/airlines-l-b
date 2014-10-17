@@ -98,8 +98,8 @@
 										@if(!empty($results))
 										@foreach($results as $key)
 										<tr>
-											<td>{{ $key->oLocation.' '.date('H:i', strtotime($key->Departure)) }}</td>
-											<td>{{ $key->dLocation.' '.date('H:i', strtotime($key->Arrival)) }}</td>
+											<td>{{ $key->oAirportCode.' '.date('H:i', strtotime($key->Departure)) }}</td>
+											<td>{{ $key->dAirportCode.' '.date('H:i', strtotime($key->Arrival)) }}</td>
 											<td>{{ $key->AcName }}</td>
 											<td>{{ $key->Fare }}</td>
 											<td>{{ '<input type="radio" name="selectplaneDepart" id="selectplaneDepart" value=" '.$key->AcName.';'.$key->oLocation.';'.$key->Departure.';'.$key->dLocation.';'.$key->Arrival.';'.$key->Fare.' " onclick="writeResultDepart(value)" />'  }}</td>
@@ -132,13 +132,11 @@
 									@if(!empty($results_rt))
 									@foreach($results_rt as $key)
 									<tr>
-										<?php //$new = $key->departure + 2; ?>
-										<?php //$new_2 = $key->arrival + 2 ?>
-										<td>{{ Session::get('destination').' '.$new.':00' }}</td>
-										<td>{{ Session::get('origin').' '.$new_2.':00' }}</td>
+										<td>{{ $key->oAirportCode.' '.date('H:i', strtotime($key->Departure)) }}</td>
+										<td>{{ $key->dAirportCode.' '.date('H:i', strtotime($key->Arrival)) }}</td>
 										<td>{{ $key->AcName }}</td>
 										<td>{{ $key->Fare }}</td>
-										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->Origin.';'.$key->Departure.';'.$key->Destination.';'.$key->Arrival.';'.$key->Fare.' " onclick="writeResultReturn(value)" />' }}</td>
+										<td>{{ '<input type="radio" name="selectplaneReturn" id="selectplaneReturn" value=" '.$key->AcName.';'.$key->oLocation.';'.$key->Departure.';'.$key->dLocation.';'.$key->Arrival.';'.$key->Fare.' " onclick="writeResultReturn(value)" />' }}</td>
 									</tr>
 									@endforeach
 									@else

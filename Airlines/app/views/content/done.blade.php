@@ -8,6 +8,8 @@
 
 		$select = Session::get('select');
 
+		$select_2 = Session::get('select_2');
+
 		$adult = Session::get('adult');
 
 		$children = Session::get('children');
@@ -28,22 +30,22 @@
 			<div class="col-md-4 panel panel-default">
 					<h5 class='summary-heading panel-heading'>Trip Summary</h5>
 					<h6 class='summary-title'>Departure</h6>
-					<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'> {{ Session::get('summary_0') }} </span><br />
-					<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ Session::get('origin') }} </span><br />
-					<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'> {{ Session::get('summary_2') }} </span><br />
-					<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ Session::get('destination') }}  </span><br />
-					<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'> {{ Session::get('summary_4') }} </span><br />
+					<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'> {{ $select[0] }} </span><br />
+					<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ $select[1] }} </span><br />
+					<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'> {{ $select[2] }} </span><br />
+					<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ $select[3] }}  </span><br />
+					<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'> {{ $select[4] }} </span><br />
 					
 
 
 					@if(Session::get('tripType') != 'oneway') 
 					<!-- 	<div class="col-md-4"> -->
 					<h6 class='summary-title'>Return</h6>
-					<span>Flight:</span>&nbsp;&nbsp;{{ Session::get('summary2_0') }}<span id='dFlight'></span><br />
-					<span>From:</span>&nbsp;&nbsp;{{ Session::get('destination') }}<span id='dDepart'></span><br />
-					<span>Departure:</span>&nbsp;&nbsp;{{ Session::get('summary2_2') }}<span id='dDeparture'></span><br />
-					<span>To:</span>&nbsp;&nbsp;{{ Session::get('origin') }}<span id='dArrive'></span><br />
-					<span>Arrival:</span>&nbsp;&nbsp;{{ Session::get('summary2_4') }}<span id='dArrival'></span><br />
+					<span>Flight:</span>&nbsp;&nbsp;{{ $select_2[0] }}<span id='dFlight'></span><br />
+					<span>From:</span>&nbsp;&nbsp;{{ $select_2[1] }}<span id='dDepart'></span><br />
+					<span>Departure:</span>&nbsp;&nbsp;{{ $select_2[2] }}<span id='dDeparture'></span><br />
+					<span>To:</span>&nbsp;&nbsp;{{ $select_2[3] }}<span id='dArrive'></span><br />
+					<span>Arrival:</span>&nbsp;&nbsp;{{ $select_2[4] }}<span id='dArrival'></span><br />
 					<div class="summary-divider"></div>
 					<!-- 	</div> -->
 					@endif

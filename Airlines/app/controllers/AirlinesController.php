@@ -79,12 +79,13 @@ class AirlinesController extends \BaseController {
 			$results_rt = DB::table('flight_schedule as fs')
 						->join('airfare as af', 'fs.airfare', '=', 'af.AfID')
 						->join('route as r', 'af.route', '=', 'r.RtID')
-						->join('aircrafts as ac', 'fs.aircraft','=','acAcID')
-						->join('airport as ap', 'ap.ApID', '=', 'r.Ori.gin')
+						->join('aircrafts as ac', 'fs.aircraft','=','ac.AcID')
+						->join('airport as ap', 'ap.ApID', '=', 'r.Origin')
 						->join('airport as ap1', 'ap1.ApID', '=', 'r.Destination')
 						->where('fs.flightdate', '=', $return)
 						->where('r.Origin', '=', $destination)
 						->where('r.Destination', '=', $origin)
+						->select('*', 'r.RtID', 'r.Origin', 'ap.AirportCode AS oAirportCode', 'ap.Location AS oLocation', 'ap.Country AS oCountry', 'r.Destination', 'ap1.AirportCode AS dAirportCode', 'ap1.Location AS dLocation', 'ap1.Country AS dCountry')
 						->get();
 
 			Session::put('results_rt', $results_rt);

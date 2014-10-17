@@ -49,6 +49,7 @@
 	
 		
 		Session::put('select', $select);
+		Session::put('select_2', $select_2);
 
 		?>
 
@@ -57,9 +58,9 @@
 				<h5 class='summary-heading panel-heading'>Trip Summary</h5>
 				<h6 class='summary-title'>Departure</h6>
 				<span>Flight:</span>&nbsp;&nbsp;<span id='oFlight'> {{ $select[0] }} </span><br />
-				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ Session::get('origin') }} {{ $select[1] }} </span><br />
+				<span>From:</span>&nbsp;&nbsp;<span id='oDepart'> {{ $select[1] }} </span><br />
 				<span>Departure:</span>&nbsp;&nbsp;<span id='oDeparture'> {{ $select[2] }} </span><br />
-				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ Session::get('destination') }} {{ $select[3] }} </span><br />
+				<span>To:</span>&nbsp;&nbsp;<span id='oArrive'> {{ $select[3] }} </span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;<span id='oArrival'> {{ $select[4] }} </span><br />
 				
 
@@ -68,9 +69,9 @@
 				<!-- 	<div class="col-md-4"> -->
 				<h6 class='summary-title'>Return</h6>
 				<span>Flight:</span>&nbsp;&nbsp;{{ $select_2[0] }}<span id='dFlight'></span><br />
-				<span>From:</span>&nbsp;&nbsp; {{ Session::get('destination') }} {{ $select_2[1] }}<span id='dDepart'></span><br />
+				<span>From:</span>&nbsp;&nbsp; {{ $select_2[1] }}<span id='dDepart'></span><br />
 				<span>Departure:</span>&nbsp;&nbsp;{{ $select_2[2] }}<span id='dDeparture'></span><br />
-				<span>To:</span>&nbsp;&nbsp; {{ Session::get('origin') }} {{ $select_2[3] }}<span id='dArrive'></span><br />
+				<span>To:</span>&nbsp;&nbsp; {{ $select_2[3] }}<span id='dArrive'></span><br />
 				<span>Arrival:</span>&nbsp;&nbsp;{{ $select_2[4] }}<span id='dArrival'></span><br />
 				<div class="summary-divider"></div>
 				<!-- 	</div> -->
